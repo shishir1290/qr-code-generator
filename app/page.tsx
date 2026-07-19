@@ -27,17 +27,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30">
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">QR</div>
-            <span className="font-bold text-gray-800 text-lg">QR Generator</span>
-            <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium">100% Free</span>
-          </div>
-          <p className="text-xs text-gray-500 hidden sm:block">All QR codes work forever · No account needed</p>
-        </div>
-      </header>
-
       <main className="max-w-5xl mx-auto px-4 py-10">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-bold text-gray-900 mb-3">Free QR Code Generator</h1>
