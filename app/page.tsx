@@ -31,15 +31,21 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('url');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30">
-      <main className="max-w-5xl mx-auto px-4 py-10">
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-purple-50/5 blur-[100px] pointer-events-none" />
+
+      <main className="max-w-5xl mx-auto px-4 py-10 relative z-10">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">Free QR Code Generator</h1>
-          <p className="text-gray-500 text-lg max-w-xl mx-auto">Create QR codes that work forever — URLs, apps, Wi-Fi, maps, and more. No sign-up, no limits, completely free.</p>
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent mb-3">
+            Free QR Code Generator
+          </h1>
+          <p className="text-slate-450 text-lg max-w-xl mx-auto">Create QR codes that work forever — URLs, apps, Wi-Fi, maps, and more. No sign-up, no limits, completely free.</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="flex overflow-x-auto border-b border-gray-100">
+        <div className="bg-slate-900/40 border border-slate-900 rounded-3xl overflow-hidden backdrop-blur-md shadow-2xl shadow-indigo-950/10">
+          <div className="flex overflow-x-auto border-b border-slate-900">
             {TABS.map(tab => {
               const Icon = tab.icon;
               return (
@@ -48,11 +54,11 @@ export default function Home() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 py-4 text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 border-b-2 ${
                     activeTab === tab.id
-                      ? 'border-purple-500 text-purple-600 bg-purple-50/50'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                      ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
+                      : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/50'
                   }`}
                 >
-                  <Icon className="h-4 w-4 text-purple-500" />
+                  <Icon className="h-4 w-4 text-indigo-400" />
                   <span>{tab.label}</span>
                 </button>
               );
@@ -79,13 +85,13 @@ export default function Home() {
           ].map(f => {
             const Icon = f.icon;
             return (
-              <div key={f.title} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex items-start gap-4">
-                <div className="p-3 bg-purple-50 text-purple-600 rounded-xl flex-shrink-0">
+              <div key={f.title} className="bg-slate-900/40 border border-slate-900 rounded-2xl p-5 shadow-sm flex items-start gap-4 backdrop-blur-sm">
+                <div className="p-3 bg-indigo-950/30 text-indigo-400 rounded-xl flex-shrink-0">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-1">{f.title}</h3>
-                  <p className="text-sm text-gray-500 leading-normal">{f.desc}</p>
+                  <h3 className="font-semibold text-slate-100 mb-1">{f.title}</h3>
+                  <p className="text-sm text-slate-400 leading-normal">{f.desc}</p>
                 </div>
               </div>
             );
@@ -93,7 +99,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="text-center py-8 text-sm text-gray-400 mt-8">
+      <footer className="text-center py-8 text-xs text-slate-600 border-t border-slate-900 mt-16 bg-slate-950/40">
         <p>Free QR Generator · All codes are permanent · No ads · No tracking</p>
       </footer>
     </div>
