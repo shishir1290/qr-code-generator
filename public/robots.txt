@@ -1,0 +1,5 @@
+# robots.txt for QR Generator & SEO Radar Tools
+User-agent: *
+Allow: /
+
+Sitemap: https://qr-generator.vercel.app/sitemap.xml

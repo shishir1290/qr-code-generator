@@ -1691,16 +1691,16 @@ function GoogleRankingChecklist() {
   const [checklist, setChecklist] = useState([
     // Category 1: On-Page
     { id: 1, text: 'Create unique, targeted meta titles and descriptions for every layout page', cat: 'On-Page SEO', done: true },
-    { id: 2, text: 'Ensure exactly one H1 tag is present on each page to signal the core theme', cat: 'On-Page SEO', done: false },
-    { id: 3, text: 'Add descriptive alt text to all image tags for accessibility and image search indexing', cat: 'On-Page SEO', done: false },
-    { id: 4, text: 'Include primary keyword naturally in the first 100 words of page content', cat: 'On-Page SEO', done: false },
+    { id: 2, text: 'Ensure exactly one H1 tag is present on each page to signal the core theme', cat: 'On-Page SEO', done: true },
+    { id: 3, text: 'Add descriptive alt text to all image tags for accessibility and image search indexing', cat: 'On-Page SEO', done: true },
+    { id: 4, text: 'Include primary keyword naturally in the first 100 words of page content', cat: 'On-Page SEO', done: true },
     
     // Category 2: Technical
     { id: 5, text: 'Generate and upload a robots.txt file to guide search crawlers', cat: 'Technical SEO', done: true },
-    { id: 6, text: 'Generate an XML sitemap listing all site pages and submit it to Google Search Console', cat: 'Technical SEO', done: false },
+    { id: 6, text: 'Generate an XML sitemap listing all site pages and submit it to Google Search Console', cat: 'Technical SEO', done: true },
     { id: 7, text: 'Configure HTTPS redirection and install an SSL certificate to ensure security', cat: 'Technical SEO', done: true },
-    { id: 8, text: 'Incorporate JSON-LD Schema markup (Local, Article, or FAQ) to earn rich snippets', cat: 'Technical SEO', done: false },
-    { id: 9, text: 'Optimize CSS/JS bundle files to pass Google Core Web Vitals (speed indicators)', cat: 'Technical SEO', done: false },
+    { id: 8, text: 'Incorporate JSON-LD Schema markup (Local, Article, or FAQ) to earn rich snippets', cat: 'Technical SEO', done: true },
+    { id: 9, text: 'Optimize CSS/JS bundle files to pass Google Core Web Vitals (speed indicators)', cat: 'Technical SEO', done: true },
 
     // Category 3: Off-Page & Authority
     { id: 10, text: 'Claim your Google Business Profile (essential for local rankings)', cat: 'Off-Page SEO', done: false },
