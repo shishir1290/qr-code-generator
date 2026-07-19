@@ -242,7 +242,9 @@ function SeoAnalyzer({ copyToClipboard, copiedText }: ClipboardProps) {
       const isSelf = url.toLowerCase().includes('localhost') || 
                      url.toLowerCase().includes('qr-generator') || 
                      url.toLowerCase().includes('vercel.app') || 
-                     url.toLowerCase().includes('127.0.0.1');
+                     url.toLowerCase().includes('127.0.0.1') ||
+                     url.toLowerCase().includes('shishir.click') ||
+                     url.toLowerCase().includes('shishir.dev');
 
       if (isSelf) {
         title = "Free Tools - QR Code Generator & SEO Optimizer";
@@ -372,7 +374,15 @@ function SeoAnalyzer({ copyToClipboard, copiedText }: ClipboardProps) {
     }
 
     // 7. HTTPS/SSL
-    const isHttps = useHtml ? true : url.toLowerCase().startsWith('https://');
+    const isHttps = useHtml ? true : (
+      url.toLowerCase().startsWith('https://') || 
+      url.toLowerCase().includes('localhost') || 
+      url.toLowerCase().includes('qr-generator') || 
+      url.toLowerCase().includes('vercel.app') || 
+      url.toLowerCase().includes('127.0.0.1') ||
+      url.toLowerCase().includes('shishir.click') ||
+      url.toLowerCase().includes('shishir.dev')
+    );
     if (!isHttps) {
       score -= 10;
       issues.push({
