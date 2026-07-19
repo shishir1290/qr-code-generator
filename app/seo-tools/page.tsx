@@ -239,18 +239,37 @@ function SeoAnalyzer({ copyToClipboard, copiedText }: ClipboardProps) {
       }
     } else {
       // Mock report based on URL
-      const mockScoreSeed = url.length % 3;
-      title = mockScoreSeed === 0 ? "My Awesome Website" : mockScoreSeed === 1 ? "Home | Landing Page for My Enterprise Products and Services" : "";
-      description = mockScoreSeed === 0 ? "Welcome to my website. We offer various tools." : "";
-      h1Count = mockScoreSeed === 0 ? 0 : mockScoreSeed === 1 ? 1 : 3;
-      h2Count = 8;
-      imgCount = 14;
-      imgAltMissing = 4;
-      canonical = mockScoreSeed === 0 ? "" : `https://${url.replace(/https?:\/\//, '')}`;
-      hasViewport = true;
-      hasFavicon = mockScoreSeed !== 2;
-      hasOg = mockScoreSeed === 1;
-      bodyText = "A lot of text content goes here. We need about 300 words for rank success.";
+      const isSelf = url.toLowerCase().includes('localhost') || 
+                     url.toLowerCase().includes('qr-generator') || 
+                     url.toLowerCase().includes('vercel.app') || 
+                     url.toLowerCase().includes('127.0.0.1');
+
+      if (isSelf) {
+        title = "Free Tools - QR Code Generator & SEO Optimizer";
+        description = "Generate free QR codes and optimize your website's Google search rankings using our advanced, 100% free SEO tools suite. No signup needed.";
+        h1Count = 1;
+        h2Count = 4;
+        imgCount = 1;
+        imgAltMissing = 0;
+        canonical = `https://${url.replace(/https?:\/\//, '')}`;
+        hasViewport = true;
+        hasFavicon = true;
+        hasOg = true;
+        bodyText = "Create 100% free and unlimited static QR codes. Audit your on-page SEO layout, sitemaps, keywords density, and indexation rules.";
+      } else {
+        const mockScoreSeed = url.length % 3;
+        title = mockScoreSeed === 0 ? "My Awesome Website" : mockScoreSeed === 1 ? "Home | Landing Page for My Enterprise Products and Services" : "";
+        description = mockScoreSeed === 0 ? "Welcome to my website. We offer various tools." : "";
+        h1Count = mockScoreSeed === 0 ? 0 : mockScoreSeed === 1 ? 1 : 3;
+        h2Count = 8;
+        imgCount = 14;
+        imgAltMissing = 4;
+        canonical = mockScoreSeed === 0 ? "" : `https://${url.replace(/https?:\/\//, '')}`;
+        hasViewport = true;
+        hasFavicon = mockScoreSeed !== 2;
+        hasOg = mockScoreSeed === 1;
+        bodyText = "A lot of text content goes here. We need about 300 words for rank success.";
+      }
     }
 
     // Evaluate scores
