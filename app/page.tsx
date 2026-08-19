@@ -31,34 +31,37 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('url');
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-600 dark:selection:text-indigo-200 relative overflow-hidden transition-colors duration-300">
       {/* Background Glows */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-purple-50/5 blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-purple-500/5 dark:bg-purple-50/5 blur-[100px] pointer-events-none" />
 
       <main className="max-w-5xl mx-auto px-4 py-10 relative z-10">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent mb-3">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-100 dark:to-slate-400 bg-clip-text text-transparent mb-3">
             Free QR Code Generator
           </h1>
-          <p className="text-slate-450 text-lg max-w-xl mx-auto">Create QR codes that work forever — URLs, apps, Wi-Fi, maps, and more. No sign-up, no limits, completely free.</p>
+          <p className="text-slate-650 dark:text-slate-400 text-lg max-w-xl mx-auto">
+            Create QR codes that work forever — URLs, apps, Wi-Fi, maps, and more. No sign-up, no limits, completely free.
+          </p>
         </div>
 
-        <div className="bg-slate-900/40 border border-slate-900 rounded-3xl overflow-hidden backdrop-blur-md shadow-2xl shadow-indigo-950/10">
-          <div className="flex overflow-x-auto border-b border-slate-900">
+        <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-3xl overflow-hidden backdrop-blur-md shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-indigo-950/10 transition-all duration-300">
+          <div className="flex overflow-x-auto border-b border-slate-200 dark:border-slate-900">
             {TABS.map(tab => {
               const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-4 text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 border-b-2 ${
-                    activeTab === tab.id
-                      ? 'border-indigo-500 text-indigo-400 bg-indigo-500/5'
-                      : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/50'
+                  className={`flex items-center gap-2 px-4 py-4 text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 border-b-2 cursor-pointer ${
+                    isActive
+                      ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-indigo-500/5'
+                      : 'border-transparent text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-900/50'
                   }`}
                 >
-                  <Icon className="h-4 w-4 text-indigo-400" />
+                  <Icon className={`h-4 w-4 ${isActive ? 'text-indigo-500 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500'}`} />
                   <span>{tab.label}</span>
                 </button>
               );
@@ -85,13 +88,13 @@ export default function Home() {
           ].map(f => {
             const Icon = f.icon;
             return (
-              <div key={f.title} className="bg-slate-900/40 border border-slate-900 rounded-2xl p-5 shadow-sm flex items-start gap-4 backdrop-blur-sm">
-                <div className="p-3 bg-indigo-950/30 text-indigo-400 rounded-xl flex-shrink-0">
+              <div key={f.title} className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-5 shadow-md shadow-slate-100 dark:shadow-none flex items-start gap-4 backdrop-blur-sm transition-all duration-300">
+                <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex-shrink-0">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-100 mb-1">{f.title}</h3>
-                  <p className="text-sm text-slate-400 leading-normal">{f.desc}</p>
+                  <h3 className="font-semibold text-slate-800 dark:text-slate-100 mb-1">{f.title}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-normal">{f.desc}</p>
                 </div>
               </div>
             );
@@ -99,7 +102,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="text-center py-8 text-xs text-slate-600 border-t border-slate-900 mt-16 bg-slate-950/40">
+      <footer className="text-center py-8 text-xs text-slate-500 dark:text-slate-655 border-t border-slate-200 dark:border-slate-900 mt-16 bg-white/40 dark:bg-slate-955/40 transition-colors duration-300">
         <p>Free QR Generator · All codes are permanent · No ads · No tracking</p>
       </footer>
     </div>

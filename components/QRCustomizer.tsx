@@ -1,6 +1,30 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
+import {
+  RotateCcw,
+  Frame,
+  Shapes,
+  Image as ImageIcon,
+  Settings,
+  Ban,
+  Flower2,
+  Leaf,
+  HardHat,
+  Sparkles,
+  Heart,
+  Gift,
+  MoreHorizontal,
+  X,
+  MessageCircle,
+  Send,
+  Plus,
+  Search,
+  Check,
+  Copy,
+  Download
+} from 'lucide-react';
+import { FaYoutube, FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa';
 
 // Google Fonts list for additional text
 const FONTS = [
@@ -232,43 +256,43 @@ const BRAND_LOGOS = [
   {
     id: 'none',
     name: 'None',
-    icon: '✕',
+    icon: X,
     svg: '',
   },
   {
     id: 'facebook',
     name: 'Facebook',
-    icon: '📘',
+    icon: FaFacebook,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877F2"><circle cx="12" cy="12" r="12"/><path d="M13.5 12h2.5l.5-3h-3V7.5c0-.8.2-1 1-1h2V3.7c-.3 0-1.5-.2-2.8-.2-2.7 0-4.7 1.6-4.7 4.8V9H7v3h2v7.5h4.5V12z" fill="white"/></svg>`,
   },
   {
     id: 'youtube',
     name: 'YouTube',
-    icon: '🔴',
+    icon: FaYoutube,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000"><rect x="0" y="3" width="24" height="18" rx="5"/><path d="M9.5 8.5v7l6-3.5z" fill="white"/></svg>`,
   },
   {
     id: 'whatsapp',
     name: 'WhatsApp',
-    icon: '💬',
+    icon: MessageCircle,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#25D366"><circle cx="12" cy="12" r="12"/><path d="M12.012 5.5a6.49 6.49 0 0 0-5.632 3.256 6.42 6.42 0 0 0-.6 4.962l-.72 2.635 2.7-.71a6.46 6.46 0 0 0 9.878-5.326 6.5 6.5 0 0 0-5.626-4.817zm-2.87 8.35a.8.8 0 1 1-1.6 0 .8.8 0 0 1 1.6 0zm2.87 0a.8.8 0 1 1-1.6 0 .8.8 0 0 1 1.6 0zm2.87 0a.8.8 0 1 1-1.6 0 .8.8 0 0 1 1.6 0z" fill="white"/></svg>`,
   },
   {
     id: 'instagram',
     name: 'Instagram',
-    icon: '📷',
+    icon: FaInstagram,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><radialGradient id="rg" cx="20%" cy="115%" r="135%"><stop offset="0%" stop-color="#FFF5C0"/><stop offset="10%" stop-color="#FFDE50"/><stop offset="25%" stop-color="#FF9A00"/><stop offset="45%" stop-color="#FF1540"/><stop offset="60%" stop-color="#E20080"/><stop offset="70%" stop-color="#AF00E0"/><stop offset="100%" stop-color="#515BD4"/></radialGradient><rect width="24" height="24" rx="6" fill="url(#rg)"/><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8.2c-1.77 0-3.2-1.43-3.2-3.2s1.43-3.2 3.2-3.2 3.2 1.43 3.2 3.2-1.43 3.2-3.2 3.2zm4.7-8.3c-.4 0-.7.3-.7.7s.3.7.7.7.7-.3.7-.7-.3-.7-.7-.7z" fill="white"/></svg>`,
   },
   {
     id: 'linkedin',
     name: 'LinkedIn',
-    icon: '👥',
+    icon: FaLinkedin,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0A66C2"><rect width="24" height="24" rx="4"/><path d="M6.5 8v10h-3zM8 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 4h3v1.5c.4-.7 1.3-1.5 2.5-1.5 2.2 0 3 1.3 3 4.5V18h-3v-5c0-1.2-.5-2-1.5-2-1 0-1.5.8-1.5 2v5h-3V8z" fill="white"/></svg>`,
   },
   {
     id: 'telegram',
     name: 'Telegram',
-    icon: '✈️',
+    icon: Send,
     svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#229ED9"><circle cx="12" cy="12" r="12"/><path d="M17.5 7.5l-2.5 12c0 0-.2.5-.7.5s-.6-.3-.6-.3l-3.2-2.5-1.7 1.7s-.2.2-.5.2-.4-.2-.4-.2l.6-5.8 6.5-6c.2-.2-.1-.3-.3-.1L7.5 13l-4-1.2s-.4-.1-.4-.5.4-.5.4-.5l14-5.5s.4-.2.7 0c.2.2.1.7.1.7z" fill="white"/></svg>`,
   },
 ];
@@ -1473,7 +1497,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
             onClick={handleReset}
             className="text-sm font-medium text-gray-400 hover:text-red-500 transition-colors flex items-center gap-1"
           >
-            🧹 Reset Settings
+            <RotateCcw className="w-4 h-4" /> Reset Settings
           </button>
         </div>
 
@@ -1484,80 +1508,77 @@ export default function QRCustomizer({ qrText, name }: Props) {
             {/* 1. None */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[0])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'none' && bodyShape === 'square' && bodyColor === '#1e293b' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <svg className="w-10 h-10 stroke-gray-400" viewBox="0 0 24 24" fill="none">
-                <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round" />
-                <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round" />
-              </svg>
+              <Ban className="w-8 h-8 text-gray-450" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1">Clean</span>
             </button>
 
             {/* 2. blossoms */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[1])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] relative overflow-hidden ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] relative overflow-hidden ${
                 decoration === 'flowers' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">🌸</span>
+              <Flower2 className="w-8 h-8 text-orange-500" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Blossoms</span>
             </button>
 
             {/* 3. green foliage */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[2])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'foliage' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">🌿</span>
+              <Leaf className="w-8 h-8 text-green-600" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Foliage</span>
             </button>
 
             {/* 4. Safety Builder */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[3])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'builder' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">👷</span>
+              <HardHat className="w-8 h-8 text-yellow-500" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Safety</span>
             </button>
 
             {/* 5. Christmas Holly */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[4])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'stars' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">✨</span>
+              <Sparkles className="w-8 h-8 text-red-500" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Holly</span>
             </button>
 
             {/* 6. Sakura Hearts */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[5])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'hearts' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">💖</span>
+              <Heart className="w-8 h-8 text-pink-500" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Sakura</span>
             </button>
 
             {/* 7. Happy Birthday Balloons */}
             <button
               onClick={() => applyPreset(PRESET_TEMPLATES[6])}
-              className={`p-2 border rounded-xl flex flex-col items-center justify-center transition-all min-h-[85px] ${
+              className={`p-2 border rounded-xl flex flex-col items-center justify-center gap-1 transition-all min-h-[85px] ${
                 decoration === 'balloons' ? 'border-purple-500 bg-purple-50/20' : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <span className="text-2xl">🎈</span>
+              <Gift className="w-8 h-8 text-purple-500" />
               <span className="text-[10px] font-semibold text-gray-500 mt-1 text-center truncate w-full">Birthday</span>
             </button>
 
@@ -1566,7 +1587,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
               onClick={() => setShowTemplatesModal(true)}
               className="p-2 border border-dashed border-purple-400 hover:border-purple-600 rounded-xl flex flex-col items-center justify-center bg-purple-50/10 hover:bg-purple-50/30 transition-all cursor-pointer min-h-[85px]"
             >
-              <span className="text-lg font-bold text-purple-700">+61</span>
+              <MoreHorizontal className="w-8 h-8 text-purple-700" />
               <span className="text-[10px] font-bold text-purple-700 mt-1">More</span>
             </button>
           </div>
@@ -1575,24 +1596,27 @@ export default function QRCustomizer({ qrText, name }: Props) {
         {/* Tab Headers */}
         <div className="flex border-b border-gray-100">
           {[
-            { id: 'frames', label: 'Frames', icon: '🖼️' },
-            { id: 'shapes', label: 'Shapes', icon: '🎨' },
-            { id: 'logo', label: 'Logo', icon: '🏷️' },
-            { id: 'level', label: 'Level', icon: '⚙️' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-sm font-semibold border-b-2 transition-all ${
-                activeTab === tab.id
-                  ? 'border-purple-500 text-purple-600'
-                  : 'border-transparent text-gray-400 hover:text-gray-600'
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
+            { id: 'frames', label: 'Frames', icon: Frame },
+            { id: 'shapes', label: 'Shapes', icon: Shapes },
+            { id: 'logo', label: 'Logo', icon: ImageIcon },
+            { id: 'level', label: 'Level', icon: Settings },
+          ].map((tab) => {
+            const TabIcon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-3 text-sm font-semibold border-b-2 transition-all ${
+                  activeTab === tab.id
+                    ? 'border-purple-500 text-purple-600'
+                    : 'border-transparent text-gray-400 hover:text-gray-600'
+                }`}
+              >
+                <TabIcon className="h-4 w-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* TAB 1: FRAMES */}
@@ -1714,7 +1738,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
                   onClick={() => setShowFrameModal(true)}
                   className="p-2 border border-dashed border-purple-400 hover:border-purple-600 rounded-xl flex flex-col items-center justify-center bg-purple-50/10 hover:bg-purple-50/30 transition-all cursor-pointer"
                 >
-                  <span className="text-xl">✨</span>
+                  <Sparkles className="w-5 h-5 text-purple-700" />
                   <span className="text-[10px] font-bold text-purple-700 mt-1">+100 More</span>
                 </button>
               </div>
@@ -1782,15 +1806,15 @@ export default function QRCustomizer({ qrText, name }: Props) {
                           className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm bg-white text-gray-800"
                         >
                           <option value="none">No Icon (Plain Text)</option>
-                          <option value="scan">🔍 QR Scanner Box</option>
-                          <option value="link">🔗 Chain Link</option>
-                          <option value="phone">📞 Phone call</option>
-                          <option value="wifi">📶 Wi-Fi wave</option>
-                          <option value="play">▶ Audio Play</option>
-                          <option value="document">📄 PDF Document</option>
-                          <option value="map">📍 Location Pin</option>
-                          <option value="cart">🛒 Cart purchase</option>
-                          <option value="star">★ Rating Star</option>
+                          <option value="scan">QR Scanner Box</option>
+                          <option value="link">Chain Link</option>
+                          <option value="phone">Phone call</option>
+                          <option value="wifi">Wi-Fi wave</option>
+                          <option value="play">Audio Play</option>
+                          <option value="document">PDF Document</option>
+                          <option value="map">Location Pin</option>
+                          <option value="cart">Cart purchase</option>
+                          <option value="star">Rating Star</option>
                         </select>
                       </div>
                     </div>
@@ -1915,12 +1939,12 @@ export default function QRCustomizer({ qrText, name }: Props) {
                 className="w-full px-3 py-2.5 border border-gray-200 rounded-xl bg-white text-sm text-gray-800"
               >
                 <option value="none">No Decoration</option>
-                <option value="flowers">🌸 Autumn Blossoms (Flowers & Vines)</option>
-                <option value="foliage">🌿 Green Foliage (Organic Ivy Leaves)</option>
-                <option value="builder">👷 Safety Helmet (Construction look)</option>
-                <option value="stars">✨ Christmas Holly & Sparkles</option>
-                <option value="hearts">💖 Sakura Hearts & Butterflies</option>
-                <option value="balloons">🎈 Birthday Party Balloons</option>
+                <option value="flowers">Autumn Blossoms (Flowers & Vines)</option>
+                <option value="foliage">Green Foliage (Organic Ivy Leaves)</option>
+                <option value="builder">Safety Helmet (Construction look)</option>
+                <option value="stars">Christmas Holly & Sparkles</option>
+                <option value="hearts">Sakura Hearts & Butterflies</option>
+                <option value="balloons">Birthday Party Balloons</option>
               </select>
             </div>
 
@@ -2110,20 +2134,23 @@ export default function QRCustomizer({ qrText, name }: Props) {
             <div>
               <label className="block text-xs font-semibold text-gray-500 mb-2">Choose Brand Logo</label>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
-                {BRAND_LOGOS.map((logo) => (
-                  <button
-                    key={logo.id}
-                    onClick={() => setSelectedLogo(logo.id)}
-                    className={`py-2 border rounded-xl text-center transition-all flex flex-col items-center justify-center gap-1 ${
-                      selectedLogo === logo.id
-                        ? 'border-purple-500 bg-purple-50/50 text-purple-700'
-                        : 'border-gray-200 hover:border-gray-300 text-gray-600'
-                    }`}
-                  >
-                    <span className="text-xl">{logo.icon}</span>
-                    <span className="text-[10px] font-bold">{logo.name}</span>
-                  </button>
-                ))}
+                {BRAND_LOGOS.map((logo) => {
+                  const LogoIcon = logo.icon;
+                  return (
+                    <button
+                      key={logo.id}
+                      onClick={() => setSelectedLogo(logo.id)}
+                      className={`py-2 border rounded-xl text-center transition-all flex flex-col items-center justify-center gap-1 min-h-[64px] ${
+                        selectedLogo === logo.id
+                          ? 'border-purple-500 bg-purple-50/50 text-purple-700'
+                          : 'border-gray-200 hover:border-gray-300 text-gray-600'
+                      }`}
+                    >
+                      <LogoIcon className="h-5 w-5" />
+                      <span className="text-[10px] font-bold">{logo.name}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -2274,16 +2301,18 @@ export default function QRCustomizer({ qrText, name }: Props) {
           <div className="flex flex-col gap-2 pt-2">
             <button
               onClick={handleDownload}
-              className="w-full py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl font-bold hover:from-purple-600 hover:to-pink-600 transition-all shadow-md hover:shadow-lg text-center"
+              className="w-full py-3.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-2xl font-bold hover:from-purple-600 hover:to-pink-600 transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
             >
-              📥 Download QR CODE
+              <Download className="w-5 h-5" />
+              <span>Download QR CODE</span>
             </button>
 
             <button
               onClick={handleCopy}
-              className="w-full py-2.5 border border-gray-200 text-gray-700 rounded-2xl font-semibold hover:bg-gray-50 transition-all text-sm text-center"
+              className="w-full py-2.5 border border-gray-200 text-gray-700 rounded-2xl font-semibold hover:bg-gray-50 transition-all text-sm flex items-center justify-center gap-2"
             >
-              📋 Copy to Clipboard
+              <Copy className="w-4 h-4" />
+              <span>Copy to Clipboard</span>
             </button>
           </div>
         </div>
@@ -2300,22 +2329,25 @@ export default function QRCustomizer({ qrText, name }: Props) {
             
             {/* Modal Header */}
             <div className="p-6 border-b border-gray-150 flex items-center justify-between bg-gradient-to-r from-purple-50/50 to-pink-50/30">
-              <div>
-                <h3 className="text-xl font-extrabold text-gray-900">✨ Premium Designer Frames</h3>
-                <p className="text-xs text-gray-500 mt-1">Select from over 100 pre-designed templates with vector graphics and dynamic spacing</p>
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-6 h-6 text-purple-650" />
+                <div>
+                  <h3 className="text-xl font-extrabold text-gray-900">Premium Designer Frames</h3>
+                  <p className="text-xs text-gray-500 mt-1">Select from over 100 pre-designed templates with vector graphics and dynamic spacing</p>
+                </div>
               </div>
               <button
                 onClick={() => setShowFrameModal(false)}
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-500 transition-all flex items-center justify-center font-bold text-gray-500"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Search and Filters */}
             <div className="p-5 border-b border-gray-100 flex flex-col md:flex-row gap-4 items-center bg-white">
               <div className="relative w-full md:flex-1">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search 100+ frames (e.g. WiFi, Ticket, Polaroid, Blue, Chat...)"
@@ -2347,7 +2379,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
             <div className="p-6 overflow-y-auto flex-1 bg-gray-50/50">
               {filteredFramePresets.length === 0 ? (
                 <div className="text-center py-16">
-                  <span className="text-4xl">🔎</span>
+                  <Search className="w-10 h-10 text-gray-300 mx-auto" />
                   <p className="text-gray-500 font-semibold mt-4">No matching frames found</p>
                 </div>
               ) : (
@@ -2504,25 +2536,27 @@ export default function QRCustomizer({ qrText, name }: Props) {
       {showTemplatesModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 transition-all animate-fadeIn">
           <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[85vh] overflow-hidden shadow-2xl flex flex-col animate-scaleUp">
-            
-            {/* Modal Header */}
+               {/* Modal Header */}
             <div className="p-6 border-b border-gray-150 flex items-center justify-between bg-gradient-to-r from-purple-50/50 to-pink-50/30">
-              <div>
-                <h3 className="text-xl font-extrabold text-gray-900">🎨 Pre-Made Designer Templates</h3>
-                <p className="text-xs text-gray-500 mt-1">Select from over 60 custom-styled QR layouts with unique shapes, gradients, frames, and background decorations</p>
+              <div className="flex items-center gap-2">
+                <Shapes className="w-6 h-6 text-purple-650" />
+                <div>
+                  <h3 className="text-xl font-extrabold text-gray-900">Pre-Made Designer Templates</h3>
+                  <p className="text-xs text-gray-500 mt-1">Select from over 60 custom-styled QR layouts with unique shapes, gradients, frames, and background decorations</p>
+                </div>
               </div>
               <button
                 onClick={() => setShowTemplatesModal(false)}
                 className="w-9 h-9 rounded-full bg-gray-100 hover:bg-red-50 hover:text-red-500 transition-all flex items-center justify-center font-bold text-gray-500"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Search and Filters */}
             <div className="p-5 border-b border-gray-100 flex flex-col md:flex-row gap-4 items-center bg-white">
               <div className="relative w-full md:flex-1">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search templates (e.g. blossoms, green, gradient, Safety...)"
@@ -2554,7 +2588,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
             <div className="p-6 overflow-y-auto flex-1 bg-gray-50/50">
               {filteredTemplatePresets.length === 0 ? (
                 <div className="text-center py-16">
-                  <span className="text-4xl">🔎</span>
+                  <Search className="w-10 h-10 text-gray-300 mx-auto" />
                   <p className="text-gray-500 font-semibold mt-4">No matching templates found</p>
                 </div>
               ) : (
@@ -2594,12 +2628,12 @@ export default function QRCustomizer({ qrText, name }: Props) {
                             )}
 
                             {/* Floating icon representing decoration */}
-                            {preset.decoration === 'flowers' && <span className="absolute top-1.5 right-1.5 text-xs">🌸</span>}
-                            {preset.decoration === 'foliage' && <span className="absolute top-1.5 right-1.5 text-xs">🌿</span>}
-                            {preset.decoration === 'builder' && <span className="absolute top-1.5 right-1.5 text-xs">👷</span>}
-                            {preset.decoration === 'stars' && <span className="absolute top-1.5 right-1.5 text-xs">✨</span>}
-                            {preset.decoration === 'hearts' && <span className="absolute top-1.5 right-1.5 text-xs">💖</span>}
-                            {preset.decoration === 'balloons' && <span className="absolute top-1.5 right-1.5 text-xs">🎈</span>}
+                            {preset.decoration === 'flowers' && <Flower2 className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-orange-500" />}
+                            {preset.decoration === 'foliage' && <Leaf className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-green-600" />}
+                            {preset.decoration === 'builder' && <HardHat className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-yellow-500" />}
+                            {preset.decoration === 'stars' && <Sparkles className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-red-500" />}
+                            {preset.decoration === 'hearts' && <Heart className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-pink-500" />}
+                            {preset.decoration === 'balloons' && <Gift className="absolute top-1.5 right-1.5 h-3.5 w-3.5 text-purple-500" />}
                           </div>
                         )}
                       </div>

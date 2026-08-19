@@ -34,22 +34,22 @@ export default function SeoToolsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 selection:bg-indigo-500/30 selection:text-indigo-600 dark:selection:text-indigo-200 transition-colors duration-300 relative">
       {/* Background Glows */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-purple-500/10 blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/3 right-1/4 h-[400px] w-[400px] translate-x-1/2 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-[100px] pointer-events-none" />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-8 md:pt-16 md:pb-12 border-b border-slate-900 bg-slate-950/60 backdrop-blur-3xl">
+      <section className="relative overflow-hidden pt-12 pb-8 md:pt-16 md:pb-12 border-b border-slate-200 dark:border-slate-900 bg-white/60 dark:bg-slate-950/60 backdrop-blur-3xl transition-colors duration-300">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/5 px-3 py-1 text-xs font-medium text-indigo-400 mb-4 animate-fade-in">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 dark:border-indigo-500/30 bg-indigo-50 dark:bg-indigo-500/5 px-3 py-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 mb-4 animate-fade-in">
             <Sparkles className="h-3.5 w-3.5" />
             Rank No.1 on Google Search
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-100 dark:to-slate-400 bg-clip-text text-transparent">
             All-In-One SEO & Ranking Suite
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-slate-400">
+          <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-slate-650 dark:text-slate-400">
             Audit your website, design tags, generate schema, and track rank-boosting actions. 
             All tools are completely client-side, immediate, and 100% free forever.
           </p>
@@ -61,7 +61,7 @@ export default function SeoToolsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Mobile swipeable tool selector (hidden on desktop) */}
-          <div className="lg:hidden w-full overflow-x-auto scrollbar-hide py-2 flex gap-2 sticky top-16 z-30 bg-slate-950/90 backdrop-blur-md -mx-4 px-4 border-b border-slate-900">
+          <div className="lg:hidden w-full overflow-x-auto scrollbar-hide py-2 flex gap-2 sticky top-16 z-30 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md -mx-4 px-4 border-b border-slate-200 dark:border-slate-900">
             {SEO_TOOLS.map((tool) => {
               const Icon = tool.icon;
               const isActive = activeTab === tool.id;
@@ -69,10 +69,10 @@ export default function SeoToolsPage() {
                 <button
                   key={tool.id}
                   onClick={() => setActiveTab(tool.id)}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
+                  className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                     isActive
                       ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md shadow-indigo-600/10'
-                      : 'bg-slate-900/60 border border-slate-900 text-slate-400 hover:text-slate-200'
+                      : 'bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -84,8 +84,8 @@ export default function SeoToolsPage() {
 
           {/* Desktop sidebar navigation (hidden on mobile) */}
           <aside className="hidden lg:block lg:col-span-4 space-y-3">
-            <div className="sticky top-20 bg-slate-900/40 border border-slate-900 rounded-2xl p-4 backdrop-blur-md">
-              <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 mb-3">SEO Instruments</h2>
+            <div className="sticky top-20 bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-4 backdrop-blur-md transition-colors duration-300 shadow-sm dark:shadow-none">
+              <h2 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-3 mb-3">SEO Instruments</h2>
               <div className="space-y-1">
                 {SEO_TOOLS.map((tool) => {
                   const Icon = tool.icon;
@@ -94,14 +94,14 @@ export default function SeoToolsPage() {
                     <button
                       key={tool.id}
                       onClick={() => setActiveTab(tool.id)}
-                      className={`w-full flex items-start gap-3 rounded-xl p-3 text-left transition-all duration-200 group ${
+                      className={`w-full flex items-start gap-3 rounded-xl p-3 text-left transition-all duration-200 group cursor-pointer ${
                         isActive
                           ? 'bg-gradient-to-r from-indigo-600/90 to-purple-600/90 text-white shadow-lg shadow-indigo-600/10'
-                          : 'hover:bg-slate-900/80 text-slate-400 hover:text-slate-200'
+                          : 'hover:bg-slate-100 dark:hover:bg-slate-900/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                       }`}
                     >
-                      <div className={`mt-0.5 rounded-lg p-1.5 transition-colors ${isActive ? 'bg-white/10' : 'bg-slate-950 group-hover:bg-slate-900'}`}>
-                        <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-white' : 'text-indigo-400'}`} />
+                      <div className={`mt-0.5 rounded-lg p-1.5 transition-colors ${isActive ? 'bg-white/10' : 'bg-slate-100 dark:bg-slate-950 group-hover:bg-slate-200 dark:group-hover:bg-slate-900'}`}>
+                        <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-white' : 'text-indigo-500 dark:text-indigo-400'}`} />
                       </div>
                       <div>
                         <div className="font-semibold text-sm leading-snug">{tool.label}</div>
@@ -118,7 +118,7 @@ export default function SeoToolsPage() {
 
           {/* Right Work Area */}
           <section className="lg:col-span-8">
-            <div className="bg-slate-900/30 border border-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-md min-h-[500px] shadow-2xl shadow-indigo-950/10">
+            <div className="bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8 backdrop-blur-md min-h-[500px] shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-indigo-950/10 transition-colors duration-300">
               {activeTab === 'analyzer' && <SeoAnalyzer copyToClipboard={copyToClipboard} copiedText={copiedText} />}
               {activeTab === 'meta-gen' && <MetaGenerator copyToClipboard={copyToClipboard} copiedText={copiedText} />}
               {activeTab === 'schema-gen' && <SchemaGenerator copyToClipboard={copyToClipboard} copiedText={copiedText} />}
@@ -132,15 +132,15 @@ export default function SeoToolsPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-10 mt-16 text-center text-xs text-slate-600 bg-slate-950/40">
+      <footer className="border-t border-slate-200 dark:border-slate-900 py-10 mt-16 text-center text-xs text-slate-500 dark:text-slate-655 bg-white/40 dark:bg-slate-955/40 transition-colors duration-300">
         <div className="mx-auto max-w-6xl px-4">
           <p>© 2026 SEO Radar Tools. All tools run client-side. No trackers, no cookies, 100% data-safe.</p>
-          <div className="mt-3 flex justify-center gap-4 text-[11px] text-slate-500">
-            <a href="#" className="hover:text-indigo-400 transition-colors">Privacy Policy</a>
+          <div className="mt-3 flex justify-center gap-4 text-[11px] text-slate-500 dark:text-slate-500">
+            <a href="#" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a>
             <span>•</span>
-            <a href="#" className="hover:text-indigo-400 transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">Terms of Service</a>
             <span>•</span>
-            <a href="/" className="hover:text-indigo-400 transition-colors">QR Code Generator</a>
+            <a href="/" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">QR Code Generator</a>
           </div>
         </div>
       </footer>
