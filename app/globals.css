@@ -247,3 +247,26 @@ textarea::placeholder {
   border-color: var(--active-border-purple) !important;
   background-color: var(--active-bg-purple-half) !important;
 }
+
+/* Card Flip and 3D Perspective Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
