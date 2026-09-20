@@ -1686,7 +1686,7 @@ export default function CardDesignerPage() {
               ))}
               {savedDesigns.length === 0 && (
                 <div className="flex flex-col items-center py-10 text-center text-slate-500">
-                  <FolderHeart className="h-10 w-10 mb-2 text-slate-655" />
+                  <FolderHeart className="h-10 w-10 mb-2 text-slate-600" />
                   <p className="text-sm font-medium">No saved designs yet.</p>
                   <p className="text-xs text-slate-600 mt-1 max-w-[200px]">Save your customizations to list them here.</p>
                 </div>

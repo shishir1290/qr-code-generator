@@ -319,7 +319,7 @@ export default function AudioPlayerClient({
       </main>
 
       {/* Footer */}
-      <footer className="text-center py-6 text-xs text-slate-500 dark:text-slate-600 relative z-10 border-t border-slate-200 dark:border-slate-900/50 bg-white/40 dark:bg-slate-955/40 transition-colors duration-300">
+      <footer className="text-center py-6 text-xs text-slate-500 dark:text-slate-400 relative z-10 border-t border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-950/70 backdrop-blur-xl transition-colors duration-300">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"

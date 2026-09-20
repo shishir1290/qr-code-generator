@@ -8,6 +8,8 @@ import {
   RefreshCw, Smartphone, Laptop, CheckSquare, Info
 } from 'lucide-react';
 
+import Footer from '@/components/Footer';
+
 // Tab definitions
 const SEO_TOOLS = [
   { id: 'analyzer', label: 'SEO Audit Scanner', icon: Gauge, desc: 'Scan any website or paste HTML for a full SEO health audit' },
@@ -131,19 +133,7 @@ export default function SeoToolsPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-900 py-10 mt-16 text-center text-xs text-slate-500 dark:text-slate-655 bg-white/40 dark:bg-slate-955/40 transition-colors duration-300">
-        <div className="mx-auto max-w-6xl px-4">
-          <p>© 2026 SEO Radar Tools. All tools run client-side. No trackers, no cookies, 100% data-safe.</p>
-          <div className="mt-3 flex justify-center gap-4 text-[11px] text-slate-500 dark:text-slate-500">
-            <a href="#" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="#" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">Terms of Service</a>
-            <span>•</span>
-            <a href="/" className="hover:text-indigo-650 dark:hover:text-indigo-400 transition-colors">QR Code Generator</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

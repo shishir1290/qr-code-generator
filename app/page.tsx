@@ -7,6 +7,8 @@ import {
   ShieldCheck, Lock 
 } from 'lucide-react';
 
+import Footer from '@/components/Footer';
+
 const UrlTab = dynamic(() => import('@/components/tabs/UrlTab'), { ssr: false });
 const AppStoreTab = dynamic(() => import('@/components/tabs/AppStoreTab'), { ssr: false });
 const TextTab = dynamic(() => import('@/components/tabs/TextTab'), { ssr: false });
@@ -41,13 +43,13 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-100 dark:to-slate-400 bg-clip-text text-transparent mb-3">
             Free QR Code Generator
           </h1>
-          <p className="text-slate-650 dark:text-slate-400 text-lg max-w-xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto">
             Create QR codes that work forever — URLs, apps, Wi-Fi, maps, and more. No sign-up, no limits, completely free.
           </p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-3xl overflow-hidden backdrop-blur-md shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-indigo-950/10 transition-all duration-300">
-          <div className="flex overflow-x-auto border-b border-slate-200 dark:border-slate-900">
+        <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden backdrop-blur-md shadow-xl dark:shadow-2xl shadow-slate-200/50 dark:shadow-indigo-950/10 transition-all duration-300">
+          <div className="flex overflow-x-auto border-b border-slate-200 dark:border-slate-800">
             {TABS.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -88,7 +90,7 @@ export default function Home() {
           ].map(f => {
             const Icon = f.icon;
             return (
-              <div key={f.title} className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-900 rounded-2xl p-5 shadow-md shadow-slate-100 dark:shadow-none flex items-start gap-4 backdrop-blur-sm transition-all duration-300">
+              <div key={f.title} className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-md shadow-slate-100 dark:shadow-none flex items-start gap-4 backdrop-blur-sm transition-all duration-300">
                 <div className="p-3 bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 rounded-xl flex-shrink-0">
                   <Icon className="h-6 w-6" />
                 </div>
@@ -102,9 +104,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="text-center py-8 text-xs text-slate-500 dark:text-slate-655 border-t border-slate-200 dark:border-slate-900 mt-16 bg-white/40 dark:bg-slate-955/40 transition-colors duration-300">
-        <p>Free QR Generator · All codes are permanent · No ads · No tracking</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
