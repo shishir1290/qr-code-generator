@@ -1044,6 +1044,18 @@ export default function CardDesignerPage() {
         background: `linear-gradient(${bg.gradientAngle || 135}deg, ${bg.gradientStart || bg.color}, ${bg.gradientEnd || '#1e293b'})`
       };
     }
+    if (bg.type === 'pattern') {
+      const pattern = bg.pattern || 'dots';
+      const color = bg.gradientStart || '#64748b';
+      const base = bg.color || '#ffffff';
+      const patterns: Record<string, string> = {
+        dots: `radial-gradient(${color} 1px, transparent 1px)`,
+        grid: `linear-gradient(to right, ${color} 1px, transparent 1px), linear-gradient(to bottom, ${color} 1px, transparent 1px)`,
+        diagonal: `repeating-linear-gradient(135deg, ${color} 0 1px, transparent 1px 12px)`,
+        stripes: `repeating-linear-gradient(45deg, ${color} 0 8px, transparent 8px 16px)`
+      };
+      return { backgroundColor: base, backgroundImage: patterns[pattern] || patterns.dots, backgroundSize: pattern === 'grid' ? '24px 24px' : pattern === 'dots' ? '18px 18px' : 'auto' };
+    }
     return { backgroundColor: bg.color };
   };
 
