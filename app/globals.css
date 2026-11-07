@@ -444,3 +444,49 @@ main, section, article, header, footer { min-width: 0; }
   .card-designer-bottom-toolbar { position: sticky; bottom: 0; z-index: 20; background: rgba(2,6,23,.96); }
   .card-designer-shell input[type="range"] { min-height: 28px; }
 }
+
+
+/* Business Card Studio — clean, Canva-inspired design workspace */
+.card-designer-shell { background:#f5f6fa !important; color:#1f2937 !important; }
+.card-designer-shell .card-designer-nav,
+.card-designer-shell .card-designer-left-panel,
+.card-designer-shell .card-designer-right-panel { background:#fff !important; border-color:#e5e7eb !important; color:#1f2937 !important; }
+.card-designer-shell .card-designer-workspace,
+.card-designer-shell .card-designer-canvas-scroll { background:#eef0f5 !important; }
+.card-designer-shell .card-designer-toolbar,
+.card-designer-shell .card-designer-bottom-toolbar { background:#fff !important; border-color:#e5e7eb !important; }
+.card-designer-shell .card-designer-left-panel h2,
+.card-designer-shell .card-designer-right-panel h2 { color:#111827 !important; }
+.card-designer-shell .card-designer-left-panel .text-white,
+.card-designer-shell .card-designer-right-panel .text-white,
+.card-designer-shell .card-designer-toolbar .text-white { color:#111827 !important; }
+.card-designer-shell .card-designer-left-panel .text-slate-400,
+.card-designer-shell .card-designer-right-panel .text-slate-400,
+.card-designer-shell .card-designer-toolbar .text-slate-400 { color:#64748b !important; }
+.card-designer-shell .card-designer-left-panel .bg-slate-900,
+.card-designer-shell .card-designer-right-panel .bg-slate-900,
+.card-designer-shell .card-designer-toolbar .bg-slate-900 { background:#f8fafc !important; }
+.card-designer-shell .card-designer-left-panel .border-slate-800,
+.card-designer-shell .card-designer-right-panel .border-slate-800,
+.card-designer-shell .card-designer-toolbar .border-slate-800 { border-color:#e2e8f0 !important; }
+.card-designer-shell .card-designer-nav button { color:#64748b; border-radius:12px; }
+.card-designer-shell .card-designer-nav button:hover { background:#f1f5f9; color:#4f46e5; }
+.card-designer-shell .card-designer-left-panel button.group { background:#fff !important; border-color:#e5e7eb !important; }
+.card-designer-shell .card-designer-left-panel button.group:hover { border-color:#a5b4fc !important; box-shadow:0 8px 24px rgba(15,23,42,.08); }
+.card-designer-shell .card-designer-left-panel input,
+.card-designer-shell .card-designer-right-panel input,
+.card-designer-shell .card-designer-right-panel select,
+.card-designer-shell .card-designer-right-panel textarea { background:#f8fafc !important; color:#111827 !important; border-color:#e2e8f0 !important; }
+.card-designer-shell .card-designer-toolbar button,
+.card-designer-shell .card-designer-bottom-toolbar button { color:#475569; }
+.card-designer-shell .card-designer-toolbar button:hover,
+.card-designer-shell .card-designer-bottom-toolbar button:hover { background:#f1f5f9; color:#312e81; }
+.card-designer-shell .card-designer-toolbar .text-slate-300,
+.card-designer-shell .card-designer-right-panel .text-slate-300 { color:#334155 !important; }
+@media(max-width:767px) {
+ .card-designer-shell .card-designer-nav,
+ .card-designer-shell .card-designer-left-panel,
+ .card-designer-shell .card-designer-right-panel { background:#fff !important; border-color:#e5e7eb !important; }
+ .card-designer-shell .card-designer-workspace,
+ .card-designer-shell .card-designer-canvas-scroll { background:#eef0f5 !important; }
+}
