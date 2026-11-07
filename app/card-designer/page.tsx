@@ -984,10 +984,10 @@ export default function CardDesignerPage() {
   };
 
   return (
-    <div className="flex h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-900 text-slate-100 font-sans">
+    <div className="card-designer-shell flex h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-900 text-slate-100 font-sans">
       
       {/* 1. LEFT NAVIGATION BAR */}
-      <div className="flex h-full w-18 flex-col items-center border-r border-slate-800 bg-slate-950 py-4 gap-4 flex-shrink-0">
+      <div className="card-designer-nav flex h-full w-18 flex-col items-center border-r border-slate-800 bg-slate-950 py-4 gap-4 flex-shrink-0">
         {[
           { id: 'templates', icon: LayoutGrid, label: 'Templates' },
           { id: 'text', icon: Type, label: 'Text' },
@@ -1019,7 +1019,7 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 2. LEFT SIDEBAR PANEL */}
-      <div className="flex h-full w-80 flex-col border-r border-slate-800 bg-slate-950/40 backdrop-blur-md overflow-hidden flex-shrink-0">
+      <div className="card-designer-left-panel flex h-full w-80 flex-col border-r border-slate-800 bg-slate-950/40 backdrop-blur-md overflow-hidden flex-shrink-0">
         
         {/* Tab Header */}
         <div className="border-b border-slate-800 p-4">
@@ -1698,10 +1698,10 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 3. CENTER WORKSPACE (THE CANVAS) */}
-      <div className="flex-1 flex flex-col h-full bg-slate-900 overflow-hidden relative" ref={workspaceRef}>
+      <div className="card-designer-workspace flex-1 flex flex-col h-full bg-slate-900 overflow-hidden relative" ref={workspaceRef}>
         
         {/* Workspace Toolbar Header */}
-        <div className="h-14 border-b border-slate-800 bg-slate-950/60 backdrop-blur-md px-6 flex items-center justify-between z-10 flex-shrink-0">
+        <div className="card-designer-toolbar h-14 border-b border-slate-800 bg-slate-950/60 backdrop-blur-md px-6 flex items-center justify-between z-10 flex-shrink-0">
           
           {/* File Actions */}
           <div className="flex items-center gap-2">
@@ -1787,7 +1787,7 @@ export default function CardDesignerPage() {
         </div>
 
         {/* Dynamic Zoom Workspace container */}
-        <div className="flex-1 overflow-auto p-10 flex items-center justify-center custom-scrollbar">
+        <div className="card-designer-canvas-scroll flex-1 overflow-auto p-10 flex items-center justify-center custom-scrollbar">
           
           {/* Card Frame containing Front or Back */}
           <div 
@@ -1997,7 +1997,7 @@ export default function CardDesignerPage() {
         </div>
 
         {/* Front / Back Toggle Selector and quick specs */}
-        <div className="h-16 border-t border-slate-800 bg-slate-950/60 backdrop-blur-md px-6 flex items-center justify-between z-10 flex-shrink-0">
+        <div className="card-designer-bottom-toolbar h-16 border-t border-slate-800 bg-slate-950/60 backdrop-blur-md px-6 flex items-center justify-between z-10 flex-shrink-0">
           
           <div className="flex gap-1 bg-slate-900 border border-slate-800 rounded-xl p-0.5">
             <button
@@ -2064,7 +2064,7 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 4. RIGHT SIDEBAR PANEL (ELEMENT PROPERTIES / INSPECTOR) */}
-      <div className="flex h-full w-80 flex-col border-l border-slate-800 bg-slate-950 overflow-y-auto custom-scrollbar flex-shrink-0">
+      <div className="card-designer-right-panel flex h-full w-80 flex-col border-l border-slate-800 bg-slate-950 overflow-y-auto custom-scrollbar flex-shrink-0">
         
         {/* Properties Header */}
         <div className="border-b border-slate-800 p-4">
