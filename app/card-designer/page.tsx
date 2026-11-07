@@ -900,7 +900,7 @@ export default function CardDesignerPage() {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [selectedElementId, cardState, undoStack, redoStack]);
+  }, [selectedElementId, cardState, undoStack, redoStack, handleRedo, handleUndo, handleDuplicateElement, handleDeleteElement, updateCardState]);
 
   // Template Search and Filters
   const filteredTemplates = templates.filter(tpl => {
