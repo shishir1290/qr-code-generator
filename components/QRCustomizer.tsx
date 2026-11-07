@@ -1485,7 +1485,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-8">
       {/* LEFT COLUMN: Customizer Settings */}
-      <div className="lg:col-span-8 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6">
+      <div className="qr-customizer-settings lg:col-span-8 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm space-y-6">
         <div className="flex items-center justify-between border-b border-gray-100 pb-4">
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-gray-800">② Customize</h2>
@@ -2258,7 +2258,7 @@ export default function QRCustomizer({ qrText, name }: Props) {
       </div>
 
       {/* RIGHT COLUMN: Live preview and download manager */}
-      <div className="lg:col-span-4 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm sticky top-24 space-y-6">
+      <div className="qr-customizer-preview lg:col-span-4 bg-white border border-gray-100 rounded-3xl p-6 shadow-sm sticky top-24 space-y-6">
         <h2 className="text-lg font-bold text-gray-800 border-b border-gray-100 pb-3">
           ③ Generate & download QR
         </h2>
