@@ -1,5 +1,6 @@
-# robots.txt for QR Generator & SEO Radar Tools
+# QR Studio crawler directives
 User-agent: *
 Allow: /
 
+# Add your production domain to NEXT_PUBLIC_SITE_URL before publishing.
 Sitemap: https://qr-generator.vercel.app/sitemap.xml
