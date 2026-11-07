@@ -7,8 +7,7 @@ import {
   Search, 
   ShieldCheck, 
   Zap, 
-  Lock, 
-  Heart,
+  Lock,
   Sparkles,
   Smartphone,
   Wifi,
@@ -32,10 +31,10 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-tight text-slate-900 dark:text-white leading-none">
-                  QR Generator
+                  QR Studio
                 </span>
                 <span className="mt-1 text-[10px] font-medium text-indigo-600 dark:text-indigo-400 leading-none">
-                  Ultimate Tool Suite
+                  CREATE · CUSTOMIZE · SHARE
                 </span>
               </div>
             </Link>
@@ -64,7 +63,7 @@ export default function Footer() {
           {/* Column 1: QR Tools */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200">
-              QR Generators
+              QR Studios
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -155,7 +154,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200/80 dark:border-slate-800/80 pt-8 sm:flex-row">
           <p className="text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-            © {new Date().getFullYear()} QR Code Generator Suite · Free forever with no limits.
+            © {new Date().getFullYear()} QR Studio · Free forever with no limits.
           </p>
 
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
