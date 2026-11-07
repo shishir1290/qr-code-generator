@@ -32,6 +32,7 @@ export interface CardElement {
   // Image/Logo specific
   src?: string; // base64 or stock path
   borderRadius?: number;
+  objectFit?: 'cover' | 'contain' | 'fill';
 
   // Shape specific
   shapeType?: ShapeType;
