@@ -2273,7 +2273,7 @@ export function generateTemplates(): Template[] {
   const featuredTemplates: Template[] = [];
 
   for (const [category, layout, orientation, palette, label] of featured) {
-    const id = `tpl-${category.toLowerCase()}-${layout}-${orientation}-${palette}-double`.replace(/\\s+/g, "-");
+    const id = `tpl-${category.toLowerCase()}-${layout}-${orientation}-${palette}-double`.replace(/\s+/g, "-");
     const template = templates.find(item => item.id === id);
 
     if (template) {
