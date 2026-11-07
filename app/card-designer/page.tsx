@@ -630,10 +630,10 @@ export default function CardDesignerPage() {
     }));
   };
 
-  const moveLayer = (direction: 'up' | 'down') => {
-    if (!selectedElementId) return;
+  const moveLayer = (direction: 'up' | 'down', targetId: string | null = selectedElementId) => {
+    if (!targetId) return;
     const ordered = [...cardState.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
-    const index = ordered.findIndex(item => item.id === selectedElementId);
+    const index = ordered.findIndex(item => item.id === targetId);
     const target = direction === 'up' ? index + 1 : index - 1;
     if (index < 0 || target < 0 || target >= ordered.length) return;
     [ordered[index], ordered[target]] = [ordered[target], ordered[index]];
@@ -1750,8 +1750,8 @@ export default function CardDesignerPage() {
                     <span className="block truncate text-xs font-semibold text-slate-200">{el.type === 'text' ? (el.text || 'Text layer') : el.type === 'shape' ? `${el.shapeType || 'Shape'} layer` : `${el.type} layer`}</span>
                     <span className="text-[10px] capitalize text-slate-500">{el.type} · Layer {cardState.elements.length - index}</span>
                   </button>
-                  <button type="button" title="Move layer up" onClick={() => { setSelectedElementId(el.id); moveLayer('up'); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowUp className="h-3.5 w-3.5" /></button>
-                  <button type="button" title="Move layer down" onClick={() => { setSelectedElementId(el.id); moveLayer('down'); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowDown className="h-3.5 w-3.5" /></button>
+                  <button type="button" title="Move layer up" onClick={() => { setSelectedElementId(el.id); moveLayer('up', el.id); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowUp className="h-3.5 w-3.5" /></button>
+                  <button type="button" title="Move layer down" onClick={() => { setSelectedElementId(el.id); moveLayer('down', el.id); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowDown className="h-3.5 w-3.5" /></button>
                   <button type="button" title={el.locked ? 'Unlock layer' : 'Lock layer'} onClick={() => updateCardState(prev => ({ ...prev, elements: prev.elements.map(item => item.id === el.id ? { ...item, locked: !item.locked } : item) }))} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white">{el.locked ? <Lock className="h-3.5 w-3.5" /> : <Unlock className="h-3.5 w-3.5" />}</button>
                 </div>
               ))}
