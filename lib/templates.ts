@@ -315,6 +315,106 @@ const INDUSTRY_DATA: Record<
   },
 };
 
+type IndustryProfile = (typeof INDUSTRY_DATA)[keyof typeof INDUSTRY_DATA];
+
+function createOriginalComposition(category: string, data: IndustryProfile, index: number, orientation: "landscape" | "portrait"): CardElement[] {
+  const portrait = orientation === "portrait";
+  const W = portrait ? 600 : 1050;
+  const H = portrait ? 1050 : 600;
+  const ink = ["#172554","#18211f","#111827","#251b35","#171717","#071d2b","#18332d","#20243a","#202020","#33251f"][index];
+  const paper = ["#f8fafc","#f4f1ea","#f5f7fb","#fff8f1","#f5f0e6","#071d2b","#f3f5ef","#f4f1e9","#f8f5f1","#f8f1e8"][index];
+  const accent = ["#2563eb","#a36b45","#22c55e","#f97316","#c6a15b","#38bdf8","#6b9b79","#b08b56","#e64b3c","#b45c42"][index];
+  const muted = ["#64748b","#756b60","#64748b","#796b60","#756b60","#8ba5b6","#69786c","#756b60","#77716d","#82756a"][index];
+  const out: CardElement[] = [];
+  let z = 0;
+  const shape = (side: "front"|"back", x:number,y:number,width:number,height:number,fill:string,shapeType:"rect"|"circle"|"line"|"triangle"="rect",extra:Partial<CardElement>={}) => out.push({id:"studio-"+index+"-"+side+"-shape-"+z,type:"shape",side,x,y,width,height,rotation:0,opacity:1,locked:false,zIndex:z++,shapeType,fill,stroke:"none",...extra});
+  const text = (side:"front"|"back",x:number,y:number,width:number,height:number,value:string,size:number,color:string,extra:Partial<CardElement>={}) => out.push({id:"studio-"+index+"-"+side+"-text-"+z,type:"text",side,x,y,width,height,rotation:0,opacity:1,locked:false,zIndex:z++,text:value,fontFamily:extra.fontFamily||data.fontBody,fontSize:size,fontWeight:extra.fontWeight||"500",color,align:extra.align||"left",...extra});
+  const logo = (side:"front"|"back",x:number,y:number,size:number,fill:string,color:string) => out.push({id:"studio-"+index+"-"+side+"-logo-"+z,type:"logo",side,x,y,width:size,height:size,rotation:0,opacity:1,locked:false,zIndex:z++,shapeType:"circle",fill,stroke:color,strokeWidth:2,text:category.slice(0,2).toUpperCase()});
+  const qr = (side:"front"|"back",x:number,y:number,size:number,dark:string,light:string) => out.push({id:"studio-"+index+"-"+side+"-qr-"+z,type:"qr",side,x,y,width:size,height:size,rotation:0,opacity:1,locked:false,zIndex:z++,qrType:"url",qrData:data.web,qrText:data.web,qrColorDark:dark,qrColorLight:light,qrMargin:2});
+
+  if(index===0){ // Swiss editorial grid
+    shape("front",0,0,18,H,accent); text("front",64,52,800,24,data.company.toUpperCase(),15,accent,{fontWeight:"800",letterSpacing:3});
+    text("front",64,150,850,80,data.name,48,ink,{fontFamily:"Helvetica",fontWeight:"800"});
+    text("front",66,236,700,30,data.title.toUpperCase(),14,muted,{fontWeight:"700",letterSpacing:2});
+    shape("front",64,300,920,3,ink); text("front",66,342,420,30,data.email,17,ink); text("front",66,390,420,30,data.phone,17,ink);
+    text("front",550,342,420,30,data.web,17,ink); text("front",550,390,420,55,data.address,15,muted);
+    shape("back",0,0,W,H,ink); text("back",70,70,900,120,data.company,42,"#ffffff",{fontWeight:"800"});
+    text("back",72,235,780,40,"THOUGHTFUL WORK. LASTING IMPACT.",15,accent,{letterSpacing:3});
+    shape("back",72,315,900,2,"#64748b"); text("back",72,365,690,30,data.web,19,"#ffffff"); qr("back",850,350,125,"#172554","#ffffff");
+  } else if(index===1){ // Architectural split panel
+    shape("front",0,0,360,H,ink); shape("front",360,0,12,H,accent); logo("front",112,100,132,ink,accent);
+    text("front",55,285,250,55,data.company,25,"#ffffff",{align:"center",fontWeight:"800"});
+    text("front",420,105,570,70,data.name,38,ink,{fontWeight:"800"}); text("front",422,180,550,30,data.title,17,accent,{fontWeight:"700"});
+    shape("front",422,245,520,2,"#cbd5e1"); text("front",422,285,560,30,data.phone,17,ink); text("front",422,335,560,30,data.email,16,ink); text("front",422,385,560,30,data.web,16,ink);
+    shape("back",0,0,W,H,accent); shape("back",35,35,W-70,H-70,"none","rect",{stroke:"#ffffff",strokeWidth:2});
+    text("back",80,105,800,90,data.company.toUpperCase(),42,"#ffffff",{align:"center",fontWeight:"800",letterSpacing:2});
+    text("back",100,255,650,50,"LET'S BUILD SOMETHING GREAT.",18,"#ffffff",{align:"center",letterSpacing:2}); qr("back",820,220,130,"#172554","#ffffff");
+  } else if(index===2){ // Circular seal
+    shape("front",0,0,W,H,paper); shape("front",355,52,250,250,"none","circle",{stroke:accent,strokeWidth:5});
+    shape("front",378,75,204,204,"none","circle",{stroke:ink,strokeWidth:1}); logo("front",430,127,100,paper,accent);
+    text("front",80,335,890,55,data.name,34,ink,{align:"center",fontFamily:"Georgia",fontWeight:"700"});
+    text("front",100,395,850,24,data.title.toUpperCase(),13,accent,{align:"center",letterSpacing:3,fontWeight:"700"});
+    text("front",100,475,850,24,data.web+"  •  "+data.phone,14,muted,{align:"center"});
+    shape("back",0,0,W,H,ink); shape("back",375,85,300,300,"none","circle",{stroke:accent,strokeWidth:4});
+    text("back",100,205,850,55,data.company,34,"#ffffff",{align:"center",fontFamily:"Georgia",fontWeight:"700"});
+    text("back",100,440,850,35,data.email,18,"#ffffff",{align:"center"});
+  } else if(index===3){ // Brutalist typography
+    shape("front",0,0,250,H,accent); text("front",38,42,180,180,category.slice(0,1),170,"#ffffff",{fontFamily:"Arial Black",fontWeight:"900",align:"center"});
+    text("front",300,72,690,88,data.name.toUpperCase(),43,ink,{fontFamily:"Arial Black",fontWeight:"900"});
+    shape("front",300,180,650,12,ink); text("front",302,220,650,35,data.title,20,ink,{fontWeight:"700"});
+    text("front",302,330,650,28,data.email,17,muted); text("front",302,380,650,28,data.phone,17,muted); text("front",302,430,650,28,data.web,17,muted);
+    shape("back",0,0,W,H,paper); text("back",65,55,900,125,data.company.toUpperCase(),54,ink,{fontFamily:"Arial Black",fontWeight:"900"});
+    shape("back",65,215,920,5,accent); text("back",65,275,600,60,"MAKE IT MATTER.",36,ink,{fontWeight:"900"}); qr("back",825,345,130,ink,"#ffffff");
+  } else if(index===4){ // Quiet luxury
+    shape("front",28,28,W-56,H-56,"none","rect",{stroke:accent,strokeWidth:2}); shape("front",42,42,W-84,H-84,"none","rect",{stroke:"#cbd5e1",strokeWidth:1});
+    text("front",90,78,870,28,data.company.toUpperCase(),13,accent,{align:"center",letterSpacing:5,fontWeight:"700"}); logo("front",465,145,120,ink,accent);
+    text("front",100,315,850,55,data.name,36,ink,{fontFamily:"Georgia",align:"center"}); text("front",100,375,850,25,data.title.toUpperCase(),12,muted,{align:"center",letterSpacing:3});
+    text("front",100,455,850,25,data.web,16,ink,{align:"center"}); shape("back",0,0,W,H,ink); shape("back",40,40,W-80,H-80,"none","rect",{stroke:accent,strokeWidth:2});
+    text("back",100,125,850,60,data.company,34,"#f8fafc",{fontFamily:"Georgia",align:"center"}); shape("back",480,235,90,2,accent);
+    text("back",100,300,850,32,data.email,18,"#f8fafc",{align:"center"}); text("back",100,355,850,32,data.phone,18,"#f8fafc",{align:"center"});
+  } else if(index===5){ // Technical blueprint
+    shape("front",0,0,W,H,ink); for(let x=0;x<=W;x+=75)shape("front",x,0,1,H,"#18384b"); for(let y=0;y<=H;y+=75)shape("front",0,y,W,1,"#18384b");
+    shape("front",65,65,8,470,accent); text("front",105,75,850,28,"SYSTEMS / NETWORK / INNOVATION",13,accent,{fontFamily:"monospace",letterSpacing:3});
+    text("front",105,175,820,65,data.name,42,"#f8fafc",{fontWeight:"800"}); text("front",105,250,820,28,data.title,17,"#a9c4d2");
+    text("front",105,360,820,28,data.email,17,"#f8fafc"); text("front",105,410,820,28,data.web,17,"#f8fafc"); text("front",105,460,820,28,data.phone,17,"#f8fafc");
+    shape("back",0,0,W,H,"#f8fafc"); text("back",65,65,650,45,data.company,30,ink,{fontWeight:"800"});
+    text("back",65,135,650,30,"DIGITAL IDENTITY / CONTACT NODE",13,accent,{fontFamily:"monospace",letterSpacing:2}); qr("back",790,180,170,ink,"#ffffff");
+    text("back",65,270,650,35,data.email,17,ink); text("back",65,325,650,35,data.phone,17,ink); text("back",65,380,650,35,data.address,14,muted);
+  } else if(index===6){ // Portrait editorial
+    shape("front",0,0,W,270,accent); shape("front",42,42,W-84,186,"none","rect",{stroke:"#ffffff",strokeWidth:2});
+    text("front",70,80,W-140,40,data.company.toUpperCase(),20,"#ffffff",{align:"center",letterSpacing:2,fontWeight:"800"});
+    text("front",45,350,W-90,90,data.name,40,ink,{align:"center",fontFamily:"Georgia",fontWeight:"700"});
+    text("front",45,445,W-90,35,data.title,17,accent,{align:"center"}); shape("front",205,525,190,3,ink);
+    text("front",50,605,W-100,32,data.phone,18,ink,{align:"center"}); text("front",50,660,W-100,48,data.email,16,muted,{align:"center"});
+    text("front",50,735,W-100,32,data.web,18,ink,{align:"center"}); shape("back",0,0,W,H,ink);
+    text("back",55,210,W-110,70,data.company,33,"#ffffff",{align:"center",fontWeight:"800"}); logo("back",235,360,130,ink,accent);
+    text("back",55,565,W-110,45,"SCAN TO CONNECT",17,accent,{align:"center",letterSpacing:3}); qr("back",215,650,170,"#111827","#ffffff");
+  } else if(index===7){ // Architectural real estate
+    shape("front",0,0,430,H,"#20243a"); shape("front",430,0,620,H,paper);
+    shape("front",80,100,260,350,"none","rect",{stroke:accent,strokeWidth:3}); shape("front",105,145,210,305,accent,"triangle"); shape("front",150,210,125,240,"#20243a","triangle");
+    text("front",480,100,520,85,data.name,36,ink,{fontFamily:"Georgia",fontWeight:"700"}); text("front",482,190,520,30,data.title,15,accent,{fontWeight:"700"});
+    shape("front",482,255,440,2,"#cbd5e1"); text("front",482,295,520,28,data.phone,16,ink); text("front",482,345,520,28,data.email,15,ink); text("front",482,395,520,28,data.web,16,ink);
+    shape("back",0,0,W,H,paper); text("back",70,85,900,55,data.company.toUpperCase(),34,ink,{fontWeight:"800",letterSpacing:2});
+    text("back",70,185,650,55,"SPACES WITH PURPOSE.",24,accent,{fontFamily:"Georgia"}); qr("back",810,310,150,ink,"#ffffff");
+    text("back",70,420,650,35,data.address,16,muted);
+  } else if(index===8){ // Kinetic diagonals
+    shape("front",0,0,W,H,"#fffaf5"); shape("front",-120,-160,500,900,accent,"rect",{rotation:22}); shape("front",35,-180,120,900,ink,"rect",{rotation:22,opacity:0.92});
+    text("front",365,82,620,75,data.name,43,ink,{fontWeight:"900"}); text("front",370,170,580,35,data.title.toUpperCase(),14,accent,{letterSpacing:2,fontWeight:"800"});
+    text("front",370,325,600,28,data.email,17,ink); text("front",370,375,600,28,data.web,17,ink); text("front",370,425,600,28,data.phone,17,ink);
+    shape("back",0,0,W,H,accent); text("back",70,100,900,85,data.company,45,"#ffffff",{fontWeight:"900"});
+    text("back",75,230,700,35,"MAKE YOUR MARK.",20,"#ffffff",{letterSpacing:4}); qr("back",820,350,135,"#111827","#ffffff");
+  } else { // Editorial hospitality / menu
+    shape("front",0,0,W,H,paper); shape("front",42,42,W-84,H-84,"none","rect",{stroke:accent,strokeWidth:2});
+    text("front",95,82,860,45,data.company,31,ink,{fontFamily:"Georgia",align:"center"}); text("front",100,140,850,24,"EST. WITH PASSION",12,accent,{align:"center",letterSpacing:5});
+    shape("front",465,195,120,2,accent); text("front",110,245,830,45,data.name,29,ink,{fontFamily:"Georgia",align:"center"});
+    text("front",100,300,850,24,data.title,14,muted,{align:"center"}); text("front",100,390,850,25,data.phone+"  •  "+data.web,15,ink,{align:"center"});
+    shape("back",0,0,W,H,"#33251f"); text("back",75,75,900,55,"A NOTE OF THANKS",26,"#f8f1e8",{fontFamily:"Georgia",align:"center",letterSpacing:2});
+    shape("back",470,165,110,2,accent); text("back",110,230,830,80,data.address,18,"#f8f1e8",{align:"center"});
+    qr("back",455,365,140,"#33251f","#ffffff");
+  }
+  return out;
+}
+
 // Layout configurations
 type LayoutVariation = "executive" | "metro" | "zen";
 
@@ -2177,7 +2277,19 @@ export function generateTemplates(): Template[] {
     const template = templates.find(item => item.id === id);
 
     if (template) {
-      featuredTemplates.push({ ...template, name: label });
+      const designIndex = featuredTemplates.length;
+      const uniqueOrientation = designIndex === 6 ? "portrait" : "landscape";
+      featuredTemplates.push({
+        ...template,
+        name: label,
+        orientation: uniqueOrientation,
+        presetSize: "us_standard",
+        backgrounds: {
+          front: { type: "color", color: ["#f8fafc","#f4f1ea","#f5f7fb","#fff8f1","#f5f0e6","#071d2b","#f3f5ef","#f4f1e9","#fffaf5","#f8f1e8"][designIndex] },
+          back: { type: "color", color: ["#172554","#18211f","#111827","#251b35","#171717","#f8fafc","#111827","#20243a","#e64b3c","#33251f"][designIndex] }
+        },
+        elements: createOriginalComposition(category, INDUSTRY_DATA[category], designIndex, uniqueOrientation)
+      });
     }
   }
 
