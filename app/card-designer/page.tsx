@@ -1563,9 +1563,36 @@ export default function CardDesignerPage() {
                 >
                   Gradients
                 </button>
+                <button
+                  onClick={() => updateCardState(prev => ({
+                    ...prev,
+                    backgrounds: {
+                      ...prev.backgrounds,
+                      [activeSide]: { ...prev.backgrounds[activeSide], type: 'pattern', pattern: prev.backgrounds[activeSide].pattern || 'dots', gradientStart: prev.backgrounds[activeSide].gradientStart || '#94a3b8' }
+                    }
+                  }))}
+                  className={`flex-1 text-center py-1.5 text-xs font-semibold rounded-md transition-all cursor-pointer ${cardState.backgrounds[activeSide].type === 'pattern' ? 'bg-indigo-650 text-white shadow-sm' : 'text-slate-400 hover:text-white'}`}
+                >
+                  Patterns
+                </button>
               </div>
 
-              {cardState.backgrounds[activeSide].type === 'color' ? (
+              {cardState.backgrounds[activeSide].type === 'pattern' ? (
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-slate-400">Pattern Style</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(['dots', 'grid', 'diagonal', 'stripes'] as const).map(pattern => (
+                        <button key={pattern} type="button" onClick={() => updateCardState(prev => ({ ...prev, backgrounds: { ...prev.backgrounds, [activeSide]: { ...prev.backgrounds[activeSide], pattern } } }))} className={`rounded-lg border px-3 py-2 text-xs capitalize ${cardState.backgrounds[activeSide].pattern === pattern ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300' : 'border-slate-800 bg-slate-900 text-slate-300'}`}>{pattern}</button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <label className="space-y-1 text-xs text-slate-400">Base color<input type="color" value={cardState.backgrounds[activeSide].color} onChange={e => updateCardState(prev => ({ ...prev, backgrounds: { ...prev.backgrounds, [activeSide]: { ...prev.backgrounds[activeSide], color: e.target.value } } }))} className="h-10 w-full rounded-lg bg-transparent" /></label>
+                    <label className="space-y-1 text-xs text-slate-400">Pattern color<input type="color" value={cardState.backgrounds[activeSide].gradientStart || '#94a3b8'} onChange={e => updateCardState(prev => ({ ...prev, backgrounds: { ...prev.backgrounds, [activeSide]: { ...prev.backgrounds[activeSide], gradientStart: e.target.value } } }))} className="h-10 w-full rounded-lg bg-transparent" /></label>
+                  </div>
+                </div>
+              ) : cardState.backgrounds[activeSide].type === 'color' ? (
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <label className="text-xs font-semibold text-slate-400">Custom Color:</label>
