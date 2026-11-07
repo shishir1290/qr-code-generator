@@ -74,7 +74,7 @@ export default function Home() {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Ready to create
             </span>
           </div>
-          <div role="tablist" aria-label="QR code type" className="scrollbar-hide flex overflow-x-auto border-b border-slate-200 bg-slate-50/80 px-2 dark:border-slate-800 dark:bg-slate-950/40 sm:px-4">
+          <div role="tablist" aria-label="QR code type" className="qr-generator-tabs scrollbar-hide flex overflow-x-auto border-b border-slate-200 bg-slate-50/80 px-2 dark:border-slate-800 dark:bg-slate-950/40 sm:px-4">
             {TABS.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
