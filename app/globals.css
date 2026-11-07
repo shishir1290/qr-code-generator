@@ -415,3 +415,10 @@ main, section, article, header, footer { min-width: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+@media (max-width: 767px) {
+  .qr-customizer-preview { position: static; top: auto; }
+  .qr-customizer-settings, .qr-customizer-preview { padding: 1rem; border-radius: 1.25rem; }
+  .qr-customizer-settings .grid.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
+  .qr-customizer-preview canvas { max-width: min(100%, 340px); }
+}
