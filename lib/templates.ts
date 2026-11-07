@@ -2154,5 +2154,23 @@ export function generateTemplates(): Template[] {
     }
   }
 
-  return templates;
+  const featured = [
+    ["Corporate", "executive", "landscape", "navy", "Corporate Executive"],
+    ["Minimal", "zen", "landscape", "light", "Minimal Swiss"],
+    ["Modern", "metro", "landscape", "dark", "Modern Digital"],
+    ["Creative", "metro", "landscape", "brand", "Creative Studio"],
+    ["Luxury", "executive", "landscape", "luxury", "Luxury Gold"],
+    ["Technology", "metro", "landscape", "emerald", "Tech Grid"],
+    ["Real Estate", "executive", "landscape", "navy", "Signature Realty"],
+    ["Restaurant", "zen", "landscape", "luxury", "Atelier Restaurant"],
+    ["Healthcare", "zen", "landscape", "emerald", "Care & Wellness"],
+    ["Freelancer", "metro", "portrait", "brand", "Independent Creator"]
+  ] as const;
+
+  // Ten original, curated designs created for QR Studio (not copied Canva assets).
+  return featured.map(([category, layout, orientation, palette, label]) => {
+    const id = `tpl-${category.toLowerCase()}-${layout}-${orientation}-${palette}-double`.replace(/\s+/g, "-");
+    const template = templates.find(item => item.id === id);
+    return template ? { ...template, name: label } : null;
+  }).filter((template): template is Template => template !== null);
 }
