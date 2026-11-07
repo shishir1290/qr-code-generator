@@ -2255,16 +2255,16 @@ export function generateTemplates(): Template[] {
   }
 
   const featured = [
-    ["Corporate", "executive", "landscape", "navy", "Corporate Executive"],
-    ["Minimal", "zen", "landscape", "light", "Minimal Swiss"],
-    ["Modern", "metro", "landscape", "dark", "Modern Digital"],
-    ["Creative", "metro", "landscape", "brand", "Creative Studio"],
-    ["Luxury", "executive", "landscape", "luxury", "Luxury Gold"],
-    ["Technology", "metro", "landscape", "emerald", "Tech Grid"],
-    ["Real Estate", "executive", "landscape", "navy", "Signature Realty"],
-    ["Restaurant", "zen", "landscape", "luxury", "Atelier Restaurant"],
-    ["Healthcare", "zen", "landscape", "emerald", "Care & Wellness"],
-    ["Freelancer", "metro", "portrait", "brand", "Independent Creator"]
+    ["Corporate", "executive", "landscape", "navy", "01 · Swiss Editorial"],
+    ["Minimal", "zen", "landscape", "light", "02 · Architectural Split"],
+    ["Modern", "metro", "landscape", "dark", "03 · Circular Identity"],
+    ["Creative", "metro", "landscape", "brand", "04 · Brutalist Typography"],
+    ["Luxury", "executive", "landscape", "luxury", "05 · Quiet Luxury"],
+    ["Technology", "metro", "landscape", "emerald", "06 · Tech Blueprint"],
+    ["Real Estate", "executive", "landscape", "navy", "07 · Portrait Editorial"],
+    ["Restaurant", "zen", "landscape", "luxury", "08 · Architectural Property"],
+    ["Healthcare", "zen", "landscape", "emerald", "09 · Kinetic Creative"],
+    ["Freelancer", "metro", "portrait", "brand", "10 · Hospitality Editorial"]
   ] as const;
 
   // Ten original, curated designs created for QR Studio (not copied Canva assets).
