@@ -422,7 +422,7 @@ export default function CardDesignerPage() {
   };
 
   // Drag and Resize handlers
-  const handleElementMouseDown = (e: React.MouseEvent, element: CardElement) => {
+  const handleElementMouseDown = (e: React.PointerEvent, element: CardElement) => {
     if (element.locked) return;
     e.stopPropagation();
     
@@ -441,7 +441,7 @@ export default function CardDesignerPage() {
     });
   };
 
-  const handleResizeMouseDown = (e: React.MouseEvent, element: CardElement, handle: string) => {
+  const handleResizeMouseDown = (e: React.PointerEvent, element: CardElement, handle: string) => {
     e.stopPropagation();
     e.preventDefault();
     
@@ -576,13 +576,15 @@ export default function CardDesignerPage() {
     };
 
     if (dragState.isDragging || dragState.isResizing) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('pointermove', handleMouseMove);
+      window.addEventListener('pointerup', handleMouseUp);
+      window.addEventListener('pointercancel', handleMouseUp);
     }
     
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('pointermove', handleMouseMove);
+      window.removeEventListener('pointerup', handleMouseUp);
+      window.removeEventListener('pointercancel', handleMouseUp);
     };
   }, [dragState, selectedElementId, zoom, cardState]);
 
@@ -1841,13 +1843,13 @@ export default function CardDesignerPage() {
                   return (
                     <div
                       key={el.id}
-                      onMouseDown={(e) => handleElementMouseDown(e, el)}
+                      onPointerDown={(e) => handleElementMouseDown(e, el)}
                       onClick={(e) => {
                         if (!el.locked) {
                           e.stopPropagation();
                         }
                       }}
-                      className={`absolute group cursor-move ${
+                      className={`absolute group cursor-move touch-none ${
                         isSelected ? 'ring-2 ring-indigo-500 z-50' : 'hover:ring-1 hover:ring-slate-400'
                       }`}
                       style={{
@@ -1867,19 +1869,19 @@ export default function CardDesignerPage() {
                       {isSelected && !el.locked && (
                         <>
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'tl')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'tl')}
                             className="absolute -top-1.5 -left-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nwse-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'tr')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'tr')}
                             className="absolute -top-1.5 -right-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nesw-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'bl')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'bl')}
                             className="absolute -bottom-1.5 -left-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nesw-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'br')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'br')}
                             className="absolute -bottom-1.5 -right-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nwse-resize shadow-md"
                           />
                         </>
@@ -1938,13 +1940,13 @@ export default function CardDesignerPage() {
                   return (
                     <div
                       key={el.id}
-                      onMouseDown={(e) => handleElementMouseDown(e, el)}
+                      onPointerDown={(e) => handleElementMouseDown(e, el)}
                       onClick={(e) => {
                         if (!el.locked) {
                           e.stopPropagation();
                         }
                       }}
-                      className={`absolute group cursor-move ${
+                      className={`absolute group cursor-move touch-none ${
                         isSelected ? 'ring-2 ring-indigo-500 z-50' : 'hover:ring-1 hover:ring-slate-400'
                       }`}
                       style={{
@@ -1964,19 +1966,19 @@ export default function CardDesignerPage() {
                       {isSelected && !el.locked && (
                         <>
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'tl')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'tl')}
                             className="absolute -top-1.5 -left-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nwse-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'tr')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'tr')}
                             className="absolute -top-1.5 -right-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nesw-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'bl')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'bl')}
                             className="absolute -bottom-1.5 -left-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nesw-resize shadow-md"
                           />
                           <div 
-                            onMouseDown={(e) => handleResizeMouseDown(e, el, 'br')}
+                            onPointerDown={(e) => handleResizeMouseDown(e, el, 'br')}
                             className="absolute -bottom-1.5 -right-1.5 h-3.5 w-3.5 rounded-full border border-indigo-500 bg-white cursor-nwse-resize shadow-md"
                           />
                         </>
