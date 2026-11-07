@@ -40,7 +40,7 @@ export default function CardDesignerPage() {
   const [redoStack, setRedoStack] = useState<CardState[]>([]);
   
   // Editor navigation and controls
-  const [activeTab, setActiveTab] = useState<'templates' | 'text' | 'qr' | 'shapes' | 'background' | 'my-designs'>('templates');
+  const [activeTab, setActiveTab] = useState<'templates' | 'text' | 'qr' | 'shapes' | 'background' | 'layers' | 'my-designs'>('templates');
   const [zoom, setZoom] = useState(60); // percentage
   const [showGuides, setShowGuides] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -618,6 +618,31 @@ export default function CardDesignerPage() {
     setSelectedElementId(duplicate.id);
   };
 
+  const alignSelected = (axis: 'horizontal' | 'vertical') => {
+    if (!selectedElementId) return;
+    updateCardState(prev => ({
+      ...prev,
+      elements: prev.elements.map(item => item.id === selectedElementId
+        ? { ...item, ...(axis === 'horizontal'
+          ? { x: Math.round((prev.width - item.width) / 2) }
+          : { y: Math.round((prev.height - item.height) / 2) }) }
+        : item)
+    }));
+  };
+
+  const moveLayer = (direction: 'up' | 'down') => {
+    if (!selectedElementId) return;
+    const ordered = [...cardState.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+    const index = ordered.findIndex(item => item.id === selectedElementId);
+    const target = direction === 'up' ? index + 1 : index - 1;
+    if (index < 0 || target < 0 || target >= ordered.length) return;
+    [ordered[index], ordered[target]] = [ordered[target], ordered[index]];
+    updateCardState(prev => ({
+      ...prev,
+      elements: prev.elements.map(item => ({ ...item, zIndex: ordered.findIndex(entry => entry.id === item.id) + 1 }))
+    }));
+  };
+
   const bringToFront = () => {
     if (!selectedElementId) return;
     const maxZ = Math.max(...cardState.elements.map(e => e.zIndex || 0), 0);
@@ -996,6 +1021,7 @@ export default function CardDesignerPage() {
           { id: 'qr', icon: QrCode, label: 'QR Code' },
           { id: 'shapes', icon: Square, label: 'Shapes' },
           { id: 'background', icon: Paintbrush, label: 'Colors' },
+          { id: 'layers', icon: Layers, label: 'Layers' },
           { id: 'my-designs', icon: FolderHeart, label: 'Saved' }
         ].map(tab => {
           const Icon = tab.icon;
@@ -1635,7 +1661,29 @@ export default function CardDesignerPage() {
             </div>
           )}
 
-          {/* F. MY SAVED DESIGNS */}
+          {/* F. LAYERS */}
+          {activeTab === 'layers' && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-slate-400">Objects on the {activeSide} side</p>
+                <span className="rounded-full bg-slate-800 px-2 py-1 text-[10px] text-slate-300">{cardState.elements.filter(el => el.side === activeSide).length} layers</span>
+              </div>
+              {[...cardState.elements].filter(el => el.side === activeSide).sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0)).map((el, index) => (
+                <div key={el.id} className={`flex items-center gap-2 rounded-xl border p-2 ${selectedElementId === el.id ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-800 bg-slate-900/70'}`}>
+                  <button type="button" onClick={() => setSelectedElementId(el.id)} className="min-w-0 flex-1 text-left">
+                    <span className="block truncate text-xs font-semibold text-slate-200">{el.type === 'text' ? (el.text || 'Text layer') : el.type === 'shape' ? `${el.shapeType || 'Shape'} layer` : `${el.type} layer`}</span>
+                    <span className="text-[10px] capitalize text-slate-500">{el.type} · Layer {cardState.elements.length - index}</span>
+                  </button>
+                  <button type="button" title="Move layer up" onClick={() => { setSelectedElementId(el.id); moveLayer('up'); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowUp className="h-3.5 w-3.5" /></button>
+                  <button type="button" title="Move layer down" onClick={() => { setSelectedElementId(el.id); moveLayer('down'); }} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"><ArrowDown className="h-3.5 w-3.5" /></button>
+                  <button type="button" title={el.locked ? 'Unlock layer' : 'Lock layer'} onClick={() => updateCardState(prev => ({ ...prev, elements: prev.elements.map(item => item.id === el.id ? { ...item, locked: !item.locked } : item) }))} className="rounded-md p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white">{el.locked ? <Lock className="h-3.5 w-3.5" /> : <Unlock className="h-3.5 w-3.5" />}</button>
+                </div>
+              ))}
+              {cardState.elements.filter(el => el.side === activeSide).length === 0 && <p className="rounded-xl border border-dashed border-slate-800 p-6 text-center text-xs text-slate-500">Add text, images, shapes or a QR code to start building layers.</p>}
+            </div>
+          )}
+
+          {/* G. MY SAVED DESIGNS */}
           {activeTab === 'my-designs' && (
             <div className="space-y-3">
               {savedDesigns.map(design => (
@@ -1757,6 +1805,14 @@ export default function CardDesignerPage() {
           {/* Settings & Toggle Actions */}
           <div className="flex items-center gap-3">
             
+            {selectedEl && (
+              <div className="hidden items-center gap-1 rounded-lg border border-slate-800 bg-slate-900 p-1 lg:flex">
+                <button type="button" onClick={() => alignSelected('horizontal')} title="Center horizontally" className="rounded-md px-2 py-1 text-[11px] font-semibold text-slate-300 hover:bg-slate-800">Center X</button>
+                <button type="button" onClick={() => alignSelected('vertical')} title="Center vertically" className="rounded-md px-2 py-1 text-[11px] font-semibold text-slate-300 hover:bg-slate-800">Center Y</button>
+                <button type="button" onClick={() => moveLayer('up')} title="Move layer up" className="rounded-md p-1.5 text-slate-300 hover:bg-slate-800"><ArrowUp className="h-3.5 w-3.5" /></button>
+                <button type="button" onClick={() => moveLayer('down')} title="Move layer down" className="rounded-md p-1.5 text-slate-300 hover:bg-slate-800"><ArrowDown className="h-3.5 w-3.5" /></button>
+              </div>
+            )}
             <button
               onClick={() => setShowGuides(!showGuides)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all cursor-pointer ${
