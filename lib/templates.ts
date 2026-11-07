@@ -2168,9 +2168,18 @@ export function generateTemplates(): Template[] {
   ] as const;
 
   // Ten original, curated designs created for QR Studio (not copied Canva assets).
-  return featured.map(([category, layout, orientation, palette, label]) => {
-    const id = `tpl-${category.toLowerCase()}-${layout}-${orientation}-${palette}-double`.replace(/\s+/g, "-");
+  // Build a typed result explicitly so missing optional template matches never
+  // leak null into the Template[] return type.
+  const featuredTemplates: Template[] = [];
+
+  for (const [category, layout, orientation, palette, label] of featured) {
+    const id = `tpl-${category.toLowerCase()}-${layout}-${orientation}-${palette}-double`.replace(/\\s+/g, "-");
     const template = templates.find(item => item.id === id);
-    return template ? { ...template, name: label } : null;
-  }).filter((template): template is Template => template !== null);
+
+    if (template) {
+      featuredTemplates.push({ ...template, name: label });
+    }
+  }
+
+  return featuredTemplates;
 }
