@@ -422,3 +422,25 @@ main, section, article, header, footer { min-width: 0; }
   .qr-customizer-settings .grid.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
   .qr-customizer-preview canvas { max-width: min(100%, 340px); }
 }
+
+/* Canva-style editor interaction and responsive workspace refinements */
+.card-designer-shell { isolation: isolate; }
+.card-designer-canvas-scroll { touch-action: pan-x pan-y; }
+.card-designer-canvas-scroll [onpointerdown],
+.card-designer-canvas-scroll .cursor-move { touch-action: none; }
+.card-designer-shell button,
+.card-designer-shell label { touch-action: manipulation; }
+.card-designer-left-panel,
+.card-designer-right-panel { overscroll-behavior: contain; }
+@media (max-width: 767px) {
+  .card-designer-shell { min-height: 100dvh; }
+  .card-designer-nav { position: sticky; top: 0; z-index: 25; background: #020617; }
+  .card-designer-left-panel { max-height: 38dvh; }
+  .card-designer-workspace { height: 68dvh; min-height: 28rem; }
+  .card-designer-canvas-scroll { padding: 1rem .75rem; }
+  .card-designer-right-panel { max-height: none; overflow: visible; }
+  .card-designer-toolbar { gap: .5rem; }
+  .card-designer-toolbar > div { flex-wrap: wrap; }
+  .card-designer-bottom-toolbar { position: sticky; bottom: 0; z-index: 20; background: rgba(2,6,23,.96); }
+  .card-designer-shell input[type="range"] { min-height: 28px; }
+}
