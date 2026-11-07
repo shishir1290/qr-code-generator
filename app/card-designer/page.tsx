@@ -866,6 +866,42 @@ export default function CardDesignerPage() {
   // Selected element shortcut updates
   const selectedEl = cardState.elements.find(e => e.id === selectedElementId);
 
+  // Canva-style keyboard shortcuts for faster editing.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const editing = !!target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT' || target.isContentEditable);
+      if (editing) return;
+      const modifier = event.ctrlKey || event.metaKey;
+      if (modifier && event.key.toLowerCase() === 'z') {
+        event.preventDefault();
+        event.shiftKey ? handleRedo() : handleUndo();
+      } else if (modifier && event.key.toLowerCase() === 'y') {
+        event.preventDefault();
+        handleRedo();
+      } else if (modifier && event.key.toLowerCase() === 'd') {
+        event.preventDefault();
+        handleDuplicateElement();
+      } else if ((event.key === 'Delete' || event.key === 'Backspace') && selectedElementId) {
+        event.preventDefault();
+        handleDeleteElement();
+      } else if (selectedElementId && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        event.preventDefault();
+        const step = event.shiftKey ? 10 : 1;
+        const dx = event.key === 'ArrowLeft' ? -step : event.key === 'ArrowRight' ? step : 0;
+        const dy = event.key === 'ArrowUp' ? -step : event.key === 'ArrowDown' ? step : 0;
+        updateCardState(prev => ({
+          ...prev,
+          elements: prev.elements.map(item => item.id === selectedElementId
+            ? { ...item, x: item.x + dx, y: item.y + dy }
+            : item)
+        }));
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [selectedElementId, cardState, undoStack, redoStack]);
+
   // Template Search and Filters
   const filteredTemplates = templates.filter(tpl => {
     const matchesSearch = tpl.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -923,7 +959,8 @@ export default function CardDesignerPage() {
               <img
                 src={el.src}
                 alt="Uploaded Asset"
-                className="w-full h-full object-cover"
+                className="w-full h-full"
+                style={{ objectFit: el.objectFit || 'cover' }}
                 draggable={false}
               />
             ) : (
@@ -2324,6 +2361,13 @@ export default function CardDesignerPage() {
                   </div>
                 </div>
 
+                <div className="flex items-center gap-2 border-t border-slate-850 pt-3">
+                  <button type="button" onClick={() => updateSelectedElement({ fontWeight: Number(selectedEl.fontWeight || 400) >= 700 ? '400' : '700' })} aria-pressed={Number(selectedEl.fontWeight || 400) >= 700} className={`rounded-lg border px-3 py-2 text-xs font-black ${Number(selectedEl.fontWeight || 400) >= 700 ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300' : 'border-slate-800 bg-slate-900 text-slate-300'}`}>B</button>
+                  <button type="button" onClick={() => updateSelectedElement({ fontStyle: selectedEl.fontStyle === 'italic' ? 'normal' : 'italic' })} aria-pressed={selectedEl.fontStyle === 'italic'} className={`rounded-lg border px-3 py-2 text-xs italic ${selectedEl.fontStyle === 'italic' ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300' : 'border-slate-800 bg-slate-900 text-slate-300'}`}>I</button>
+                  <button type="button" onClick={() => updateSelectedElement({ textDecoration: selectedEl.textDecoration === 'underline' ? 'none' : 'underline' })} aria-pressed={selectedEl.textDecoration === 'underline'} className={`rounded-lg border px-3 py-2 text-xs underline ${selectedEl.textDecoration === 'underline' ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300' : 'border-slate-800 bg-slate-900 text-slate-300'}`}>U</button>
+                  <span className="ml-auto text-[10px] text-slate-500">Text styling</span>
+                </div>
+
                 {/* Alignment & Text Color */}
                 <div className="grid grid-cols-2 gap-3 items-center">
                   <div className="space-y-1">
@@ -2380,6 +2424,23 @@ export default function CardDesignerPage() {
                       <option value="line-through">Line Through</option>
                     </select>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {(selectedEl.type === 'image' || selectedEl.type === 'logo') && (
+              <div className="space-y-3 border-t border-slate-850 pt-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Image Fit</label>
+                  <select value={selectedEl.objectFit || 'cover'} onChange={e => updateSelectedElement({ objectFit: e.target.value as 'cover' | 'contain' | 'fill' })} className="w-full rounded-lg border border-slate-800 bg-slate-900 px-2.5 py-2 text-xs text-white">
+                    <option value="cover">Fill frame (cover)</option>
+                    <option value="contain">Fit entire image (contain)</option>
+                    <option value="fill">Stretch to frame</option>
+                  </select>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-[10px] text-slate-500"><label>Corner radius</label><span>{selectedEl.borderRadius || 0}px</span></div>
+                  <input type="range" min="0" max="100" value={selectedEl.borderRadius || 0} onChange={e => updateSelectedElement({ borderRadius: Number(e.target.value) })} className="w-full accent-indigo-500" />
                 </div>
               </div>
             )}
