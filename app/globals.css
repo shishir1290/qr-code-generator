@@ -270,3 +270,148 @@ textarea::placeholder {
   scrollbar-width: none;
 }
 
+
+
+/* Responsive foundation: prevent accidental horizontal page overflow */
+*, *::before, *::after { box-sizing: border-box; }
+html { width: 100%; max-width: 100%; overflow-x: clip; -webkit-text-size-adjust: 100%; }
+body { width: 100%; max-width: 100%; min-width: 320px; }
+img, video, canvas, svg, iframe { max-width: 100%; }
+input, textarea, select, button { max-width: 100%; }
+input, textarea, select { font-size: 16px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+pre, code { overflow-wrap: anywhere; }
+main, section, article, header, footer { min-width: 0; }
+:focus-visible { outline: 2px solid #818cf8; outline-offset: 3px; }
+
+/* QR generator and customizer */
+#qr-generator, #qr-tab-panel { min-width: 0; }
+#qr-tab-panel > * { min-width: 0; }
+.qr-customizer-preview { position: sticky; top: 6rem; min-width: 0; }
+.qr-customizer-settings { min-width: 0; }
+.qr-customizer-settings input, .qr-customizer-settings select,
+.qr-customizer-settings textarea { width: 100%; min-width: 0; }
+.qr-customizer-preview canvas { display: block; width: 100%; height: auto; max-width: 100%; }
+.qr-customizer-preview select { min-width: 0; }
+
+/* Mobile business-card editor: stack panels and keep every control reachable */
+.card-designer-shell { min-width: 0; }
+.card-designer-nav { flex: 0 0 4.5rem; }
+.card-designer-left-panel, .card-designer-right-panel { min-width: 0; }
+.card-designer-workspace { min-width: 0; }
+.card-designer-toolbar, .card-designer-bottom-toolbar { min-width: 0; }
+.card-designer-canvas-scroll { min-width: 0; overscroll-behavior: contain; }
+@media (max-width: 1023px) {
+  .card-designer-shell { height: calc(100dvh - 64px); min-height: 620px; }
+  .card-designer-nav { width: 4.5rem; }
+  .card-designer-left-panel, .card-designer-right-panel { width: 17rem; }
+}
+@media (max-width: 767px) {
+  body { overflow-x: clip; }
+  .card-designer-shell {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100dvh - 64px);
+    overflow: visible;
+  }
+  .card-designer-nav {
+    order: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .5rem;
+    width: 100%;
+    height: auto;
+    flex: 0 0 auto;
+    overflow-x: auto;
+    padding: .5rem;
+    border-right: 0;
+    border-bottom: 1px solid #1e293b;
+    scrollbar-width: none;
+  }
+  .card-designer-nav::-webkit-scrollbar { display: none; }
+  .card-designer-nav button { flex: 0 0 3rem; width: 3rem; height: 3rem; }
+  .card-designer-nav button span { display: none; }
+  .card-designer-left-panel {
+    order: 1;
+    width: 100%;
+    height: auto;
+    max-height: 42dvh;
+    min-height: 12rem;
+    flex: 0 0 auto;
+    border-right: 0;
+    border-bottom: 1px solid #1e293b;
+  }
+  .card-designer-left-panel > div:last-child { min-height: 0; }
+  .card-designer-workspace {
+    order: 2;
+    width: 100%;
+    height: 72dvh;
+    min-height: 32rem;
+    flex: 0 0 auto;
+  }
+  .card-designer-toolbar {
+    height: auto;
+    min-height: 3.5rem;
+    padding: .5rem .75rem;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .card-designer-toolbar > div { min-width: 0; }
+  .card-designer-toolbar input { max-width: 8rem; }
+  .card-designer-toolbar > div:last-child { flex-wrap: wrap; justify-content: flex-end; gap: .35rem; }
+  .card-designer-toolbar button { min-height: 2.25rem; padding: .4rem .55rem; }
+  .card-designer-canvas-scroll {
+    padding: 1rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .card-designer-bottom-toolbar {
+    height: auto;
+    min-height: 4rem;
+    padding: .5rem .75rem;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .card-designer-bottom-toolbar > div { max-width: 100%; overflow-x: auto; }
+  .card-designer-bottom-toolbar button { white-space: nowrap; }
+  .card-designer-right-panel {
+    order: 3;
+    width: 100%;
+    height: auto;
+    max-height: 55dvh;
+    min-height: 12rem;
+    flex: 0 0 auto;
+    border-left: 0;
+    border-top: 1px solid #1e293b;
+  }
+  .card-designer-right-panel > div { min-width: 0; }
+  .card-designer-shell input, .card-designer-shell select, .card-designer-shell textarea { min-width: 0; max-width: 100%; }
+  .card-designer-shell .fixed.inset-0 { padding: .5rem; }
+  .card-designer-shell .fixed.inset-0 > div { max-height: 94dvh; border-radius: 1rem; }
+  .card-designer-shell .fixed.inset-0 .p-6 { padding: .875rem; }
+  .card-designer-shell .fixed.inset-0 .p-5 { padding: .75rem; }
+}
+@media (max-width: 480px) {
+  .card-designer-toolbar { justify-content: space-between; }
+  .card-designer-toolbar > div:last-child { width: 100%; justify-content: space-between; }
+  .card-designer-toolbar button { font-size: .68rem; }
+  .card-designer-bottom-toolbar { align-items: stretch; }
+  .card-designer-bottom-toolbar > div { width: 100%; }
+  .card-designer-bottom-toolbar > div:last-child { justify-content: flex-start; }
+  #qr-generator { border-radius: 1.1rem; }
+  #qr-tab-panel { padding: 1rem; }
+}
+@media (max-width: 360px) {
+  .card-designer-nav { gap: .25rem; }
+  .card-designer-nav button { flex-basis: 2.65rem; width: 2.65rem; height: 2.65rem; }
+  .qr-generator-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .qr-generator-tabs button { justify-content: center; min-width: 0; padding-inline: .25rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
