@@ -63,7 +63,7 @@ export default function SeoToolsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Mobile swipeable tool selector (hidden on desktop) */}
-          <div className="lg:hidden w-full overflow-x-auto scrollbar-hide py-2 flex gap-2 sticky top-16 z-30 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md -mx-4 px-4 border-b border-slate-200 dark:border-slate-900">
+          <div className="lg:hidden w-full overflow-x-auto scrollbar-hide py-2 flex gap-2 sticky top-[72px] z-30 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md -mx-4 px-4 border-b border-slate-200 dark:border-slate-900">
             {SEO_TOOLS.map((tool) => {
               const Icon = tool.icon;
               const isActive = activeTab === tool.id;
