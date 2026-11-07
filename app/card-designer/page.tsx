@@ -47,10 +47,10 @@ export default function CardDesignerPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [templates, setTemplates] = useState<any[]>([]);
   const [savedDesigns, setSavedDesigns] = useState<CardState[]>([]);
-  const [visibleTemplatesCount, setVisibleTemplatesCount] = useState(15);
+  const [visibleTemplatesCount, setVisibleTemplatesCount] = useState(10);
   
   useEffect(() => {
-    setVisibleTemplatesCount(15);
+    setVisibleTemplatesCount(10);
   }, [searchTerm, selectedCategory]);
   
   // 3D Preview and export states
@@ -1060,10 +1060,10 @@ export default function CardDesignerPage() {
   };
 
   return (
-    <div className="card-designer-shell flex h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-900 text-slate-100 font-sans">
+    <div className="card-designer-shell flex h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-50 text-slate-900 font-sans">
       
       {/* 1. LEFT NAVIGATION BAR */}
-      <div className="card-designer-nav flex h-full w-18 flex-col items-center border-r border-slate-800 bg-slate-950 py-4 gap-4 flex-shrink-0">
+      <div className="card-designer-nav flex h-full w-18 flex-col items-center border-r border-slate-200 bg-white py-4 gap-4 flex-shrink-0">
         {[
           { id: 'templates', icon: LayoutGrid, label: 'Templates' },
           { id: 'text', icon: Type, label: 'Text' },
@@ -1096,7 +1096,7 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 2. LEFT SIDEBAR PANEL */}
-      <div className="card-designer-left-panel flex h-full w-80 flex-col border-r border-slate-800 bg-slate-950/40 backdrop-blur-md overflow-hidden flex-shrink-0">
+      <div className="card-designer-left-panel flex h-full w-80 flex-col border-r border-slate-200 bg-white overflow-hidden flex-shrink-0">
         
         {/* Tab Header */}
         <div className="border-b border-slate-800 p-4">
@@ -1191,10 +1191,10 @@ export default function CardDesignerPage() {
                 {filteredTemplates.length > visibleTemplatesCount && (
                   <button
                     type="button"
-                    onClick={() => setVisibleTemplatesCount(prev => prev + 24)}
+                    onClick={() => setVisibleTemplatesCount(10)}
                     className="w-full py-2.5 px-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-900 hover:border-slate-700 text-xs font-bold text-slate-350 hover:text-white transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    Load More Templates ({filteredTemplates.length - visibleTemplatesCount} remaining)
+                    Show all 10 templates
                   </button>
                 )}
                 {filteredTemplates.length === 0 && (
@@ -1824,10 +1824,10 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 3. CENTER WORKSPACE (THE CANVAS) */}
-      <div className="card-designer-workspace flex-1 flex flex-col h-full bg-slate-900 overflow-hidden relative" ref={workspaceRef}>
+      <div className="card-designer-workspace flex-1 flex flex-col h-full bg-[#eef0f5] overflow-hidden relative" ref={workspaceRef}>
         
         {/* Workspace Toolbar Header */}
-        <div className="card-designer-toolbar h-14 border-b border-slate-800 bg-slate-950/60 backdrop-blur-md px-6 flex items-center justify-between z-10 flex-shrink-0">
+        <div className="card-designer-toolbar h-14 border-b border-slate-200 bg-white px-6 flex items-center justify-between z-10 flex-shrink-0">
           
           {/* File Actions */}
           <div className="flex items-center gap-2">
@@ -2198,7 +2198,7 @@ export default function CardDesignerPage() {
       </div>
 
       {/* 4. RIGHT SIDEBAR PANEL (ELEMENT PROPERTIES / INSPECTOR) */}
-      <div className="card-designer-right-panel flex h-full w-80 flex-col border-l border-slate-800 bg-slate-950 overflow-y-auto custom-scrollbar flex-shrink-0">
+      <div className="card-designer-right-panel flex h-full w-80 flex-col border-l border-slate-200 bg-white overflow-y-auto custom-scrollbar flex-shrink-0">
         
         {/* Properties Header */}
         <div className="border-b border-slate-800 p-4">
