@@ -321,10 +321,11 @@ function createOriginalComposition(category: string, data: IndustryProfile, inde
   const portrait = orientation === "portrait";
   const W = portrait ? 600 : 1050;
   const H = portrait ? 1050 : 600;
-  const ink = ["#172554","#18211f","#111827","#251b35","#171717","#071d2b","#18332d","#20243a","#202020","#33251f"][index];
-  const paper = ["#f8fafc","#f4f1ea","#f5f7fb","#fff8f1","#f5f0e6","#071d2b","#f3f5ef","#f4f1e9","#f8f5f1","#f8f1e8"][index];
-  const accent = ["#2563eb","#a36b45","#22c55e","#f97316","#c6a15b","#38bdf8","#6b9b79","#b08b56","#e64b3c","#b45c42"][index];
-  const muted = ["#64748b","#756b60","#64748b","#796b60","#756b60","#8ba5b6","#69786c","#756b60","#77716d","#82756a"][index];
+  const paletteIndex = index % 10;
+  const ink = ["#172554","#18211f","#111827","#251b35","#171717","#071d2b","#18332d","#20243a","#202020","#33251f"][paletteIndex];
+  const paper = ["#f8fafc","#f4f1ea","#f5f7fb","#fff8f1","#f5f0e6","#071d2b","#f3f5ef","#f4f1e9","#f8f5f1","#f8f1e8"][paletteIndex];
+  const accent = ["#2563eb","#a36b45","#22c55e","#f97316","#c6a15b","#38bdf8","#6b9b79","#b08b56","#e64b3c","#b45c42"][paletteIndex];
+  const muted = ["#64748b","#756b60","#64748b","#796b60","#756b60","#8ba5b6","#69786c","#756b60","#77716d","#82756a"][paletteIndex];
   const out: CardElement[] = [];
   let z = 0;
   const shape = (side: "front"|"back", x:number,y:number,width:number,height:number,fill:string,shapeType:"rect"|"circle"|"line"|"triangle"="rect",extra:Partial<CardElement>={}) => out.push({id:"studio-"+index+"-"+side+"-shape-"+z,type:"shape",side,x,y,width,height,rotation:0,opacity:1,locked:false,zIndex:z++,shapeType,fill,stroke:"none",...extra});
@@ -403,6 +404,94 @@ function createOriginalComposition(category: string, data: IndustryProfile, inde
     text("front",370,325,600,28,data.email,17,ink); text("front",370,375,600,28,data.web,17,ink); text("front",370,425,600,28,data.phone,17,ink);
     shape("back",0,0,W,H,accent); text("back",70,100,900,85,data.company,45,"#ffffff",{fontWeight:"900"});
     text("back",75,230,700,35,"MAKE YOUR MARK.",20,"#ffffff",{letterSpacing:4}); qr("back",820,350,135,"#111827","#ffffff");
+  } else if(index===10){ // Monogram luxury
+    shape("front",0,0,W,H,"#101820"); shape("front",60,60,930,480,"none","rect",{stroke:"#c6a15b",strokeWidth:2});
+    text("front",350,95,350,190,category.slice(0,1).toUpperCase(),150,"#c6a15b",{fontFamily:"Georgia",align:"center"});
+    text("front",100,330,850,48,data.name,34,"#ffffff",{fontFamily:"Georgia",align:"center"});
+    text("front",100,390,850,28,data.title.toUpperCase(),13,"#c6a15b",{align:"center",letterSpacing:4});
+    shape("back",0,0,W,H,"#c6a15b"); text("back",90,115,650,60,data.company,36,"#101820",{fontFamily:"Georgia"});
+    text("back",90,220,650,30,data.email,17,"#101820"); text("back",90,270,650,30,data.phone,17,"#101820");
+    qr("back",810,205,150,"#101820","#ffffff");
+  } else if(index===11){ // Color-block modernist
+    shape("front",0,0,700,H,"#f4f1ea"); shape("front",700,0,350,H,"#f05d3b"); shape("front",70,70,180,180,"#18211f","circle");
+    text("front",70,115,180,75,"A",68,"#ffffff",{align:"center",fontWeight:"900"});
+    text("front",300,100,350,75,data.name,38,"#18211f",{fontWeight:"900"}); text("front",300,190,350,30,data.title,16,"#f05d3b");
+    text("front",300,330,350,28,data.email,15,"#18211f"); text("front",300,380,350,28,data.phone,15,"#18211f");
+    shape("back",0,0,W,H,"#18211f"); shape("back",0,0,28,H,"#f05d3b");
+    text("back",85,125,800,75,data.company.toUpperCase(),38,"#ffffff",{fontWeight:"900",letterSpacing:2});
+    text("back",85,245,650,35,"IDEAS INTO ACTION.",20,"#f05d3b",{fontWeight:"800"}); qr("back",825,350,130,"#18211f","#ffffff");
+  } else if(index===12){ // Organic wellness
+    shape("front",0,0,W,H,"#edf2e8"); shape("front",690,-130,480,480,"#9caf88","circle");
+    shape("front",760,300,360,360,"#d8a77b","circle"); shape("front",55,65,8,470,"#47634c");
+    text("front",100,105,550,75,data.company,35,"#294333",{fontFamily:"Georgia"});
+    text("front",100,220,560,55,data.name,30,"#294333",{fontWeight:"700"});
+    text("front",100,280,560,28,data.title,16,"#6e826d"); text("front",100,385,560,28,data.phone,16,"#294333");
+    text("front",100,430,560,28,data.web,16,"#294333");
+    shape("back",0,0,W,H,"#294333"); shape("back",75,70,900,460,"none","rect",{stroke:"#c9d7bd",strokeWidth:2});
+    text("back",120,150,800,55,"GROW WELL. LIVE WELL.",27,"#edf2e8",{fontFamily:"Georgia",align:"center"});
+    text("back",120,260,800,30,data.email,17,"#edf2e8",{align:"center"}); qr("back",455,350,130,"#294333","#ffffff");
+  } else if(index===13){ // Vertical sidebar profile
+    shape("front",0,0,270,H,"#222b45"); shape("front",270,0,14,H,"#f4a261");
+    text("front",45,100,180,120,category.slice(0,2).toUpperCase(),58,"#ffffff",{align:"center",fontWeight:"900"});
+    text("front",335,100,650,70,data.name,38,"#222b45",{fontWeight:"800"});
+    text("front",338,180,620,28,data.title.toUpperCase(),14,"#d97745",{letterSpacing:2});
+    shape("front",338,240,570,2,"#cbd5e1"); text("front",338,285,620,28,data.email,16,"#222b45");
+    text("front",338,335,620,28,data.phone,16,"#222b45"); text("front",338,385,620,28,data.web,16,"#222b45");
+    shape("back",0,0,W,H,"#f7f4ef"); shape("back",0,0,W,24,"#222b45");
+    text("back",75,115,650,65,data.company,37,"#222b45",{fontFamily:"Georgia"});
+    text("back",75,220,650,30,data.address,16,"#64748b"); qr("back",820,330,135,"#222b45","#ffffff");
+  } else if(index===14){ // Photo-frame placeholder / portfolio
+    shape("front",0,0,W,H,"#f3f4f6"); shape("front",55,55,350,490,"#dbeafe");
+    shape("front",95,95,270,270,"#93c5fd","circle"); shape("front",150,150,160,160,"#1e3a8a","circle");
+    text("front",455,100,530,65,data.name,39,"#111827",{fontWeight:"800"});
+    text("front",458,180,520,30,data.title,17,"#2563eb"); shape("front",458,240,450,3,"#111827");
+    text("front",458,300,520,28,data.email,16,"#111827"); text("front",458,350,520,28,data.web,16,"#111827");
+    text("front",458,400,520,28,data.phone,16,"#111827");
+    shape("back",0,0,W,H,"#111827"); text("back",75,95,850,70,"YOUR NEXT GREAT PROJECT.",28,"#ffffff",{fontWeight:"900"});
+    text("back",75,220,650,30,data.company,20,"#93c5fd"); qr("back",820,340,140,"#111827","#ffffff");
+  } else if(index===15){ // Premium diagonal foil
+    shape("front",0,0,W,H,"#171717"); shape("front",-130,-180,430,900,"#b08b56","rect",{rotation:18});
+    shape("front",-55,-180,70,900,"#e7d3a5","rect",{rotation:18});
+    text("front",350,105,620,70,data.company.toUpperCase(),29,"#e7d3a5",{fontFamily:"Georgia",letterSpacing:2});
+    text("front",350,235,620,55,data.name,34,"#ffffff",{fontFamily:"Georgia"}); text("front",350,300,620,25,data.title,14,"#b08b56");
+    text("front",350,405,620,28,data.web,16,"#ffffff"); text("front",350,455,620,28,data.phone,16,"#ffffff");
+    shape("back",0,0,W,H,"#b08b56"); shape("back",35,35,W-70,H-70,"none","rect",{stroke:"#171717",strokeWidth:2});
+    text("back",100,130,850,55,data.company,34,"#171717",{fontFamily:"Georgia",align:"center"});
+    text("back",100,260,850,30,data.email,18,"#171717",{align:"center"}); qr("back",460,355,130,"#171717","#ffffff");
+  } else if(index===16){ // Neo-brutal grid
+    shape("front",0,0,W,H,"#f8e94e"); shape("front",55,55,940,490,"#ffffff");
+    shape("front",55,55,940,115,"#171717"); text("front",85,88,870,45,data.company.toUpperCase(),25,"#ffffff",{fontWeight:"900",letterSpacing:2});
+    text("front",90,220,840,70,data.name.toUpperCase(),43,"#171717",{fontWeight:"900"});
+    text("front",90,300,840,30,data.title,18,"#171717"); shape("front",90,365,850,5,"#171717");
+    text("front",90,405,420,28,data.email,16,"#171717"); text("front",560,405,400,28,data.phone,16,"#171717");
+    shape("back",0,0,W,H,"#171717"); text("back",70,100,850,100,"NO BORING BUSINESS.",38,"#f8e94e",{fontWeight:"900"});
+    text("back",75,250,650,30,data.web,18,"#ffffff"); qr("back",825,350,135,"#171717","#ffffff");
+  } else if(index===17){ // Art deco symmetry
+    shape("front",0,0,W,H,"#142b2b"); shape("front",60,45,W-120,H-90,"none","rect",{stroke:"#d8b56d",strokeWidth:2});
+    shape("front",430,75,190,190,"none","triangle",{stroke:"#d8b56d",strokeWidth:3});
+    shape("front",465,115,120,120,"none","triangle",{stroke:"#d8b56d",strokeWidth:2});
+    text("front",100,300,850,48,data.company,32,"#f4e8c9",{fontFamily:"Georgia",align:"center"});
+    text("front",100,365,850,40,data.name,25,"#d8b56d",{fontFamily:"Georgia",align:"center"});
+    text("front",100,425,850,25,data.title.toUpperCase(),12,"#f4e8c9",{align:"center",letterSpacing:3});
+    shape("back",0,0,W,H,"#f4e8c9"); text("back",85,100,850,55,"ESTABLISHED WITH INTENT",24,"#142b2b",{fontFamily:"Georgia",align:"center"});
+    text("back",100,240,850,30,data.phone,17,"#142b2b",{align:"center"}); text("back",100,290,850,30,data.email,17,"#142b2b",{align:"center"});
+    qr("back",455,375,130,"#142b2b","#ffffff");
+  } else if(index===18){ // Minimal typographic stack
+    shape("front",0,0,W,H,"#ffffff"); shape("front",0,0,W,18,"#111827");
+    text("front",70,75,900,35,data.company.toUpperCase(),14,"#64748b",{letterSpacing:4,fontWeight:"700"});
+    text("front",70,185,900,100,data.name,58,"#111827",{fontWeight:"300"});
+    text("front",75,300,850,30,data.title,18,"#6366f1"); shape("front",75,365,900,1,"#cbd5e1");
+    text("front",75,405,420,25,data.email,16,"#111827"); text("front",540,405,420,25,data.web,16,"#111827");
+    shape("back",0,0,W,H,"#6366f1"); text("back",80,140,850,75,data.company,40,"#ffffff",{fontWeight:"800"});
+    text("back",80,255,650,30,data.phone,18,"#ffffff"); qr("back",820,350,135,"#6366f1","#ffffff");
+  } else if(index===19){ // Contemporary dark gradient-like bands
+    shape("front",0,0,W,H,"#101827"); shape("front",0,0,W,18,"#22d3ee");
+    shape("front",0,470,W,130,"#172b43"); shape("front",75,85,105,105,"#22d3ee","circle");
+    text("front",220,95,760,65,data.name,40,"#f8fafc",{fontWeight:"800"});
+    text("front",222,170,700,30,data.title.toUpperCase(),14,"#22d3ee",{letterSpacing:2});
+    text("front",80,365,850,28,data.email,17,"#f8fafc"); text("front",80,415,850,28,data.web,17,"#f8fafc");
+    shape("back",0,0,W,H,"#172b43"); text("back",75,110,850,65,data.company,36,"#f8fafc",{fontWeight:"800"});
+    text("back",75,220,650,35,"CONNECT BEYOND THE CARD.",18,"#22d3ee",{letterSpacing:2}); qr("back",820,350,140,"#172b43","#ffffff");
   } else { // Editorial hospitality / menu
     shape("front",0,0,W,H,paper); shape("front",42,42,W-84,H-84,"none","rect",{stroke:accent,strokeWidth:2});
     text("front",95,82,860,45,data.company,31,ink,{fontFamily:"Georgia",align:"center"}); text("front",100,140,850,24,"EST. WITH PASSION",12,accent,{align:"center",letterSpacing:5});
@@ -2264,7 +2353,17 @@ export function generateTemplates(): Template[] {
     ["Real Estate", "executive", "landscape", "navy", "07 · Portrait Editorial"],
     ["Restaurant", "zen", "landscape", "luxury", "08 · Architectural Property"],
     ["Healthcare", "zen", "landscape", "emerald", "09 · Kinetic Creative"],
-    ["Freelancer", "metro", "portrait", "brand", "10 · Hospitality Editorial"]
+    ["Freelancer", "metro", "portrait", "brand", "10 · Hospitality Editorial"],
+    ["Luxury", "executive", "landscape", "luxury", "11 · Monogram Luxury"],
+    ["Creative", "metro", "landscape", "brand", "12 · Color-Block Modernist"],
+    ["Healthcare", "zen", "landscape", "emerald", "13 · Organic Wellness"],
+    ["Corporate", "executive", "landscape", "navy", "14 · Vertical Sidebar"],
+    ["Freelancer", "metro", "landscape", "light", "15 · Portfolio Profile"],
+    ["Luxury", "executive", "landscape", "luxury", "16 · Premium Foil"],
+    ["Creative", "metro", "landscape", "brand", "17 · Neo-Brutalist Grid"],
+    ["Restaurant", "zen", "landscape", "luxury", "18 · Art Deco Symmetry"],
+    ["Corporate", "executive", "landscape", "navy", "19 · Minimal Typographic"],
+    ["Technology", "metro", "landscape", "emerald", "20 · Neon Tech"]
   ] as const;
 
   // Ten original, curated designs created for QR Studio (not copied Canva assets).
